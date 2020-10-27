@@ -89,15 +89,18 @@ int main( int argc, char** argv ) {
         vector<Mat> channels;
         split(imgThresholded,channels);
 
-        Mat red, blue, green;
+        Mat red;
         inRange(channels[0], Scalar(0), Scalar(10), red); // red
 // ... do the same for blue, green, etc only changing the Scalar values and the Mat
 
         double image_size = imgThresholded.cols*imgThresholded.rows;
-        double red_percent = ((double) cv::countNonZero(red))/image_size;
+        double red_percent = (1 - ((double) cv::countNonZero(red))/image_size) * 100;
+
+        //cout << "Red percent: " << red_percent << "%" << endl;
+        if(red_percent>20) cout << "BANG!!" << endl;
 
         //to ma dodac aktualna ilosc w % czerwonego na zarejestrowanym obrazie ale trzeba naprawic
-        imgThresholded =  putText(imgThresholded, to_string(red_percent), (10, 100), FONT_HERSHEY_SCRIPT_COMPLEX , 1, (210, 155, 155), 4, LINE_8);
+        putText(imgThresholded, to_string(red_percent), Point2f(100,100), FONT_HERSHEY_PLAIN, 2,  Scalar(0,0,255,255));
 
         Mat flipHorizontal, flipOriginalHorizontal;
         flip(imgThresholded, flipHorizontal, 1);
