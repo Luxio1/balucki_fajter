@@ -5,7 +5,7 @@
 using namespace cv;
 using namespace std;
 
-bool isPhoto = false;
+bool isPhoto = true;
 string filePath = "C:\\Users\\User\\Desktop\\balucki_fajter\\SamplePhotos\\simple\\rekawica\\test1.jpg";
 
 int main( int argc, char** argv ) {
@@ -36,6 +36,7 @@ int main( int argc, char** argv ) {
 	Mat imgTmp;
 	if (isPhoto) {
 		imgTmp = imread(filePath);
+		resize(imgTmp, imgTmp, imgTmp.size() / 5);
 	}
 	else {
 		cap.read(imgTmp);
@@ -49,6 +50,7 @@ int main( int argc, char** argv ) {
 
 		if (isPhoto) {
 			imgOriginal = imread(filePath);
+			resize(imgOriginal, imgOriginal, imgOriginal.size() / 5);
 		}
 		else {
 			bool bSuccess = cap.read(imgOriginal); // read a new frame from video
