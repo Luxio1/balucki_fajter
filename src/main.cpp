@@ -5,14 +5,20 @@
 using namespace cv;
 using namespace std;
 
-int main( int argc, char** argv ) {
-    VideoCapture cap(0); //capture the video from webcam
+bool isPhoto = false;
+string filePath = "C:\\Users\\User\\Desktop\\balucki_fajter\\SamplePhotos\\simple\\rekawica\\test1.jpg";
 
-    if (!cap.isOpened())  // if not success, exit program
-    {
-        cout << "Cannot open the web cam" << endl;
-        return -1;
-    }
+int main( int argc, char** argv ) {
+	VideoCapture cap(0); //capture the video from webcam
+
+	if (!isPhoto) {
+
+		if (!cap.isOpened())  // if not success, exit program
+		{
+			cout << "Cannot open the web cam" << endl;
+			return -1;
+		}
+	}
 
     int iLowH = 170;
     int iHighH = 179;
@@ -27,18 +33,27 @@ int main( int argc, char** argv ) {
     int iLastY = -1;
 
     //Capture a temporary image from the camera
-    Mat imgTmp;
-    cap.read(imgTmp);
+	Mat imgTmp;
+	if (isPhoto) {
+		imgTmp = imread(filePath);
+	}
+	else {
+		cap.read(imgTmp);
+	}
 
     //Create a black image with the size as the camera output
     Mat imgLines = Mat::zeros(imgTmp.size(), CV_8UC3);;
 
-
     while (true) {
         Mat imgOriginal;
 
-        bool bSuccess = cap.read(imgOriginal); // read a new frame from video
-
+		if (isPhoto) {
+			imgOriginal = imread(filePath);
+		}
+		else {
+			bool bSuccess = cap.read(imgOriginal); // read a new frame from video
+		}
+		bool bSuccess = !imgOriginal.empty();
 
 
         if (!bSuccess) //if not success, break loop
@@ -111,7 +126,9 @@ int main( int argc, char** argv ) {
         flip(imgOriginal, flipOriginalHorizontal, 1);
         imshow("Original", flipOriginalHorizontal); //show the original image
 
-        if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
+		int toWait = 30;
+		if (isPhoto) toWait = 300000000;
+        if (waitKey(toWait) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
         {
             cout << "esc key is pressed by user" << endl;
             break;
