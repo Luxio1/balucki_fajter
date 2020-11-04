@@ -6,7 +6,7 @@ using namespace cv;
 using namespace std;
 
 bool isPhoto = true;
-string filePath = "C:\\Users\\User\\Desktop\\balucki_fajter\\SamplePhotos\\simple\\rekawica\\test1.jpg";
+string filePath = "C:\\Users\\User\\Desktop\\balucki_fajter\\SamplePhotos\\simple\\rekawica\\test7.jpg";
 
 int main( int argc, char** argv ) {
 	VideoCapture cap(0); //capture the video from webcam
@@ -21,12 +21,14 @@ int main( int argc, char** argv ) {
 	}
 
     int iLowH = 170;
-    int iHighH = 179;
+    int iHighH = 180;
+	int iLowH2 = 0;
+	int iHighH2 = 3;
 
-    int iLowS = 150;
+    int iLowS = 131;
     int iHighS = 255;
 
-    int iLowV = 60;
+    int iLowV = 50;
     int iHighV = 255;
 
     int iLastX = -1;
@@ -68,10 +70,14 @@ int main( int argc, char** argv ) {
 
         cvtColor(imgOriginal, imgHSV, COLOR_BGR2HSV); //Convert the captured frame from BGR to HSV
 
-        Mat imgThresholded;
+        Mat imgThresholded, imgThresholded2;
 
         inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV),
                 imgThresholded); //Threshold the image
+		inRange(imgHSV, Scalar(iLowH2, iLowS, iLowV), Scalar(iHighH2, iHighS, iHighV),
+			imgThresholded2);
+
+		imgThresholded = imgThresholded | imgThresholded2;
 
         //morphological opening (removes small objects from the foreground)
         erode(imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
