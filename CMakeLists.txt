@@ -15,6 +15,8 @@ include_directories(
 
 add_executable(balucki_fajter
 	src/main.cpp
+	src/Camera.cpp
+	src/Camera.h
 )
 
 target_link_libraries(balucki_fajter
