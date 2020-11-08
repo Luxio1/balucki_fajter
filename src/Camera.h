@@ -1,9 +1,5 @@
 #include <utility>
 
-//
-// Created by luxio on 08.11.2020.
-//
-
 #ifndef BALUCKI_FAJTER_CAMERA_H
 #define BALUCKI_FAJTER_CAMERA_H
 
@@ -32,7 +28,7 @@ public:
             this->is_photo = is_photo;
         }
 
-        bool isPhoto() {
+        bool isPhoto() const {
             return is_photo;
         };
 
