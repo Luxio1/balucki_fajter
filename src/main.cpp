@@ -16,6 +16,14 @@ int main( int argc, char** argv ) {
     //Game Window
     sf::RenderWindow window(sf::VideoMode(1200, 600, 32), "Balucki fajter");
 
+    //Background
+    sf::Texture backgroundTexture;
+    backgroundTexture.loadFromFile("/home/luxio/Desktop/balucki_fajter/Sprites/Backgrounds/Office_scene.png" );
+    sf::Sprite background;
+    background.setTexture(backgroundTexture);
+    background.setScale( 0.65, 0.65 );
+
+    //Glove
     sf::Texture boxingGloveTexture;
     boxingGloveTexture.loadFromFile("/home/luxio/Desktop/balucki_fajter/Sprites/rekawice/rekawica_lewa.png");
     sf::Sprite glove;
@@ -63,6 +71,7 @@ int main( int argc, char** argv ) {
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
             gloveY += 2;
         }
+        window.draw(background);
         window.draw(glove);
         window.display();
     }
