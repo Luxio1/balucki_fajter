@@ -10,7 +10,7 @@ using namespace cv;
 using namespace std;
 
 bool isPhoto = false;
-string filePath = "C:/Users/pmorl/Desktop/balucki_fajter";
+string filePath = "C:/Users/User/Desktop/balucki_fajter";
 
 // temporary function to test background scaling
 void scaleToWindow(sf::RenderWindow* window, sf::Sprite* toScale) {
@@ -45,15 +45,8 @@ int main( int argc, char** argv ) {
 
     //Photo and camera
     auto* camera = new Camera(filePath + "/SamplePhotos/simple/rekawica/test1.jpg", isPhoto);
-    if(camera->isPhoto()){
-        camera->runWithPhoto();
-    } else {
-        camera->runWithVideo();
-    }
-
 
     //Game loop
-
     sf::Event event{};
     int gloveX = 0;
     int gloveY = 0;
@@ -77,6 +70,7 @@ int main( int argc, char** argv ) {
         //window.clear(sf::Color::Black);
         glove.setPosition(gloveX, gloveY);
         fighter1.setPosition(window.getSize().x/2, window.getSize().y/3);
+		camera->runWithVideoSingleFrame(&gloveX, &gloveY);
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             gloveX += -tempGloveV;
@@ -95,7 +89,6 @@ int main( int argc, char** argv ) {
         sf::Time sleepTime = sf::milliseconds(5);
 		sf::sleep(sleepTime);
     }
-
 
     return 0;
 }
