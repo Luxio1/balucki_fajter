@@ -30,7 +30,12 @@ int main( int argc, char** argv ) {
     sf::Sprite background;
     background.setTexture(backgroundTexture);
 	scaleToWindow(&window, &background);
-	
+
+    //Fighter
+    sf::Texture Fighter1Texture;
+    Fighter1Texture.loadFromFile(filePath+"/Sprites/Fighters/frajer_fajter1.png");
+    sf::Sprite fighter1;
+    fighter1.setTexture(Fighter1Texture);
 
     //Glove
     sf::Texture boxingGloveTexture;
@@ -69,8 +74,9 @@ int main( int argc, char** argv ) {
             }
         }
 
-        window.clear(sf::Color::Black);
+        //window.clear(sf::Color::Black);
         glove.setPosition(gloveX, gloveY);
+        fighter1.setPosition(window.getSize().x/2, window.getSize().y/3);
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             gloveX += -tempGloveV;
@@ -83,6 +89,7 @@ int main( int argc, char** argv ) {
         }
 
         window.draw(background);
+        window.draw(fighter1);
         window.draw(glove);
         window.display();
         sf::Time sleepTime = sf::milliseconds(5);
