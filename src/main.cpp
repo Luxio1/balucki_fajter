@@ -3,13 +3,14 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include "Camera.h"
 
 using namespace cv;
 using namespace std;
 
 bool isPhoto = true;
-string filePath = "C:/Users/User/Desktop/balucki_fajter";
+string filePath = "/home/luxio/Desktop/balucki_fajter";
 
 // temporary function to test background scaling
 void scaleToWindow(sf::RenderWindow* window, sf::Sprite* toScale) {
@@ -25,7 +26,7 @@ int main( int argc, char** argv ) {
 
     //Background
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile(filePath+"/Sprites/Backgrounds/Office_scene.png");
+    backgroundTexture.loadFromFile(filePath + "/Sprites/Backgrounds/Office_scene.png");
     sf::Sprite background;
     background.setTexture(backgroundTexture);
 	scaleToWindow(&window, &background);
@@ -33,12 +34,12 @@ int main( int argc, char** argv ) {
 
     //Glove
     sf::Texture boxingGloveTexture;
-    boxingGloveTexture.loadFromFile(filePath+"/Sprites/rekawice/rekawica_lewa.png");
+    boxingGloveTexture.loadFromFile(filePath + "/Sprites/rekawice/rekawica_lewa.png");
     sf::Sprite glove;
     glove.setTexture(boxingGloveTexture);
 
     //Photo and camera
-//    auto* camera = new Camera(filePath, isPhoto);
+//    auto* camera = new Camera(filePath + "/SamplePhotos/simple/rekawica/test1.jpg", isPhoto);
 //    if(camera->isPhoto()){
 //        camera->runWithPhoto();
 //    } else {
@@ -84,7 +85,8 @@ int main( int argc, char** argv ) {
         window.draw(background);
         window.draw(glove);
         window.display();
-		_sleep(5);
+        sf::Time sleepTime = sf::milliseconds(5);
+		sf::sleep(sleepTime);
     }
 
 
