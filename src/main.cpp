@@ -9,23 +9,31 @@ using namespace cv;
 using namespace std;
 
 bool isPhoto = true;
-string filePath = "/home/luxio/Desktop/balucki_fajter/SamplePhotos/simple/rekawica/test1.jpg";
+string filePath = "C:/Users/User/Desktop/balucki_fajter";
+
+// temporary function to test background scaling
+void scaleToWindow(sf::RenderWindow* window, sf::Sprite* toScale) {
+	float scX = (float)window->getSize().x / toScale->getTexture()->getSize().x;
+	float scY = (float)window->getSize().y / toScale->getTexture()->getSize().y;
+	toScale->setScale(scX, scY);
+}
 
 int main( int argc, char** argv ) {
 
     //Game Window
-    sf::RenderWindow window(sf::VideoMode(1200, 600, 32), "Balucki fajter");
+    sf::RenderWindow window(sf::VideoMode(1920, 1080, 32), "Balucki fajter");
 
     //Background
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile("/home/luxio/Desktop/balucki_fajter/Sprites/Backgrounds/Office_scene.png" );
+    backgroundTexture.loadFromFile(filePath+"/Sprites/Backgrounds/Office_scene.png");
     sf::Sprite background;
     background.setTexture(backgroundTexture);
-    background.setScale( 0.65, 0.65 );
+	scaleToWindow(&window, &background);
+	
 
     //Glove
     sf::Texture boxingGloveTexture;
-    boxingGloveTexture.loadFromFile("/home/luxio/Desktop/balucki_fajter/Sprites/rekawice/rekawica_lewa.png");
+    boxingGloveTexture.loadFromFile(filePath+"/Sprites/rekawice/rekawica_lewa.png");
     sf::Sprite glove;
     glove.setTexture(boxingGloveTexture);
 
@@ -43,6 +51,7 @@ int main( int argc, char** argv ) {
     sf::Event event{};
     int gloveX = 0;
     int gloveY = 0;
+	int tempGloveV = 7;
 
     while(window.isOpen()) {
         //Event polling (to event variable)
@@ -63,17 +72,19 @@ int main( int argc, char** argv ) {
         glove.setPosition(gloveX, gloveY);
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            gloveX += -2;
+            gloveX += -tempGloveV;
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            gloveX += 2;
+            gloveX += tempGloveV;
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            gloveY += -2;
+            gloveY += -tempGloveV;
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            gloveY += 2;
+            gloveY += tempGloveV;
         }
+
         window.draw(background);
         window.draw(glove);
         window.display();
+		_sleep(5);
     }
 
 
