@@ -9,8 +9,8 @@
 using namespace cv;
 using namespace std;
 
-bool isPhoto = true;
-string filePath = "/home/luxio/Desktop/balucki_fajter";
+bool isPhoto = false;
+string filePath = "C:/Users/pmorl/Desktop/balucki_fajter";
 
 // temporary function to test background scaling
 void scaleToWindow(sf::RenderWindow* window, sf::Sprite* toScale) {
@@ -44,12 +44,12 @@ int main( int argc, char** argv ) {
     glove.setTexture(boxingGloveTexture);
 
     //Photo and camera
-//    auto* camera = new Camera(filePath + "/SamplePhotos/simple/rekawica/test1.jpg", isPhoto);
-//    if(camera->isPhoto()){
-//        camera->runWithPhoto();
-//    } else {
-//        camera->runWithVideo();
-//    }
+    auto* camera = new Camera(filePath + "/SamplePhotos/simple/rekawica/test1.jpg", isPhoto);
+    if(camera->isPhoto()){
+        camera->runWithPhoto();
+    } else {
+        camera->runWithVideo();
+    }
 
 
     //Game loop
