@@ -1,30 +1,28 @@
-cmake_minimum_required(VERSION 3.18)
-project(untitled7)
+cmake_minimum_required(VERSION 3.3.1)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/" ${CMAKE_MODULE_PATH})
+project(balucki_fajter)
 
-# Where to find CMake modules and OpenCV
-set(OpenCV_DIR "C:\\Program Files\\opencv\\mingw-build\\install")
+set(OpenCV_DIR "C:/opencv/vs-make")
+set(SFML_DIR "C:/SFML-2.5.1/include")
 
-find_package(OpenCV 4.5.0 REQUIRED)
-
-find_package(SFML REQUIRED system window graphics network audio)
-
+find_package(OpenCV 4.4.0 REQUIRED)
+find_package(SFML 2.5.1 REQUIRED COMPONENTS audio graphics window system)
 
 include_directories(
-		${OpenCV_INCLUDE_DIRS}
-		${SFML_INCLUDE_DIR}
+	${OpenCV_INCLUDE_DIRS}
+	${SFML_INCLUDE_DIRS}
 )
 
-add_executable(untitled7 main.cpp)
+add_executable(balucki_fajter
+	src/main.cpp
+	src/Camera.cpp
+	src/Camera.h
+)
 
-# add libs you need
-set(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)
-
-# linking
-target_link_libraries(untitled7 ${OpenCV_LIBS}
-		${SFML_LIBRARIES}
-		sfml-audio sfml-graphics sfml-window sfml-system
-		)
-
-
+target_link_libraries(balucki_fajter
+	${OpenCV_LIBS}
+	sfml-audio
+	sfml-graphics
+	sfml-window
+	sfml-system
+)
