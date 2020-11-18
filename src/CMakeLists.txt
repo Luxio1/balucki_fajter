@@ -12,8 +12,8 @@ find_package(SFML REQUIRED system window graphics network audio)
 
 
 include_directories(
-		${OpenCV_INCLUDE_DIRS}
-		${SFML_INCLUDE_DIR}
+        ${OpenCV_INCLUDE_DIRS}
+        ${SFML_INCLUDE_DIR}
 )
 
 add_executable(untitled7 main.cpp)
@@ -23,8 +23,8 @@ set(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)
 
 # linking
 target_link_libraries(untitled7 ${OpenCV_LIBS}
-		${SFML_LIBRARIES}
-		sfml-audio sfml-graphics sfml-window sfml-system
-		)
+        ${SFML_LIBRARIES}
+        sfml-audio sfml-graphics sfml-window sfml-system
+        )
 
 
