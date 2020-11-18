@@ -35,7 +35,7 @@ public:
     void runWithVideo();
     void runWithPhoto();
     void detectRed();
-	void runWithVideoSingleFrame(int* X, int* Y);
+	void runWithVideoSingleFrame(int* X, int* Y, int*, int*);
 };
 
 #endif //BALUCKI_FAJTER_CAMERA_H
