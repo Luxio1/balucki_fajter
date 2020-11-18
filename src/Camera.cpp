@@ -234,7 +234,7 @@ void Camera::detectRed() {
 
 }
 
-void Camera::runWithVideoSingleFrame(int* X, int* Y) {
+void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
 	VideoCapture static cap(0); //capture the video from webcam
 
 	if (!cap.isOpened())  // if not success, exit program
@@ -251,11 +251,13 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y) {
 	//Create a black image with the size as the camera output
 	Mat imgLines = Mat::zeros(imgTmp.size(), CV_8UC3);;
 
-	Mat imgOriginal;
+	Mat imgOriginal = imgTmp;
+	flip(imgOriginal, imgOriginal, 1);
 
-	cap.read(imgOriginal); // read a new frame from video
+	
+	// cap.read(imgOriginal); // read a new frame from video
 	bool bSuccess = !imgOriginal.empty();
-
+	
 
 	if (!bSuccess) //if not success, break loop
 	{
@@ -312,6 +314,8 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y) {
 
 	*X = iLastX;
 	*Y = iLastY;
+	*szer = imgOriginal.cols;
+	*wys = imgOriginal.rows;
 
 	vector<Mat> channels;
 	split(imgThresholded, channels);
@@ -321,7 +325,6 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y) {
 	// ... do the same for blue, green, etc only changing the Scalar values and the Mat
 
 	double image_size = imgThresholded.cols * imgThresholded.rows;
-	printf("im_size: %lf", image_size);
 	double red_percent = (1 - ((double)cv::countNonZero(red)) / image_size) * 100;
 
 	//cout << "Red percent: " << red_percent << "%" << endl;

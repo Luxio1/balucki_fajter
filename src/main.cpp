@@ -22,7 +22,9 @@ void scaleToWindow(sf::RenderWindow* window, sf::Sprite* toScale) {
 int main( int argc, char** argv ) {
 
     //Game Window
-    sf::RenderWindow window(sf::VideoMode(1920, 1080, 32), "Balucki fajter");
+	int baseWidth = 1920;
+	int baseHeigth = 1080;
+    sf::RenderWindow window(sf::VideoMode(baseWidth, baseHeigth, 32), "Balucki fajter");
 
     //Background
     sf::Texture backgroundTexture;
@@ -36,12 +38,15 @@ int main( int argc, char** argv ) {
     Fighter1Texture.loadFromFile(filePath+"/Sprites/Fighters/frajer_fajter1.png");
     sf::Sprite fighter1;
     fighter1.setTexture(Fighter1Texture);
+	fighter1.setOrigin(Fighter1Texture.getSize().x / 2, Fighter1Texture.getSize().y / 2);
 
     //Glove
     sf::Texture boxingGloveTexture;
     boxingGloveTexture.loadFromFile(filePath + "/Sprites/rekawice/rekawica_lewa.png");
     sf::Sprite glove;
     glove.setTexture(boxingGloveTexture);
+	glove.setOrigin(boxingGloveTexture.getSize().x / 2, boxingGloveTexture.getSize().y / 2);
+	glove.setScale(2, 2);
 
     //Photo and camera
     auto* camera = new Camera(filePath + "/SamplePhotos/simple/rekawica/test1.jpg", isPhoto);
@@ -69,8 +74,16 @@ int main( int argc, char** argv ) {
 
         //window.clear(sf::Color::Black);
         glove.setPosition(gloveX, gloveY);
-        fighter1.setPosition(window.getSize().x/2, window.getSize().y/3);
-		camera->runWithVideoSingleFrame(&gloveX, &gloveY);
+        fighter1.setPosition(baseWidth/2, baseHeigth * 2/3);
+
+		int szer = 0, wys = 0;
+		camera->runWithVideoSingleFrame(&gloveX, &gloveY, &szer, &wys);
+		gloveX = ((float)gloveX / szer) * baseWidth;
+		gloveY = ((float)gloveY / wys) * baseHeigth;
+
+		cout << "window x: " << window.getSize().x << " window y: " << window.getSize().y << endl;
+		cout << "x: " << gloveX << " y: " << gloveY << endl;
+
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             gloveX += -tempGloveV;
