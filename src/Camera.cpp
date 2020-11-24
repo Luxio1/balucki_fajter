@@ -56,9 +56,9 @@ while (true) {
 
     Mat imgThresholded, imgThresholded2;
 
-    inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV),
+    cv::inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV),
         imgThresholded); //Threshold the image
-    inRange(imgHSV, Scalar(iLowH2, iLowS, iLowV), Scalar(iHighH2, iHighS, iHighV),
+    cv::inRange(imgHSV, Scalar(iLowH2, iLowS, iLowV), Scalar(iHighH2, iHighS, iHighV),
         imgThresholded2);
 
     imgThresholded = imgThresholded | imgThresholded2;
@@ -94,10 +94,10 @@ while (true) {
     }
 
     vector<Mat> channels;
-    split(imgThresholded, channels);
+    cv::split(imgThresholded, channels);
 
     Mat red;
-    inRange(channels[0], Scalar(0), Scalar(10), red); // red
+    cv::inRange(channels[0], Scalar(0), Scalar(10), red); // red
 // ... do the same for blue, green, etc only changing the Scalar values and the Mat
 
     double image_size = imgThresholded.cols * imgThresholded.rows;
@@ -158,9 +158,9 @@ void Camera::runWithPhoto() {
 
         Mat imgThresholded, imgThresholded2;
 
-        inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV),
+        cv::inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV),
             imgThresholded); //Threshold the image
-        inRange(imgHSV, Scalar(iLowH2, iLowS, iLowV), Scalar(iHighH2, iHighS, iHighV),
+        cv::inRange(imgHSV, Scalar(iLowH2, iLowS, iLowV), Scalar(iHighH2, iHighS, iHighV),
             imgThresholded2);
 
         imgThresholded = imgThresholded | imgThresholded2;
@@ -196,10 +196,10 @@ void Camera::runWithPhoto() {
         }
 
         vector<Mat> channels;
-        split(imgThresholded, channels);
+        cv::split(imgThresholded, channels);
 
         Mat red;
-        inRange(channels[0], Scalar(0), Scalar(10), red); // red
+        cv::inRange(channels[0], Scalar(0), Scalar(10), red); // red
 // ... do the same for blue, green, etc only changing the Scalar values and the Mat
 
         double image_size = imgThresholded.cols * imgThresholded.rows;
@@ -243,21 +243,17 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
 		return;
 	}
 
-	//Capture a temporary image from the camera
-	Mat imgTmp;
-	
-	cap.read(imgTmp);
-
 	//Create a black image with the size as the camera output
-	Mat imgLines = Mat::zeros(imgTmp.size(), CV_8UC3);;
+	//Mat imgLines = Mat::zeros(imgTmp.size(), CV_8UC3);;
 
-	Mat imgOriginal = imgTmp;
+	Mat imgOriginal;
+	cap.read(imgOriginal);
+	resize(imgOriginal, imgOriginal, Size(imgOriginal.cols/2, imgOriginal.rows/2));
 	flip(imgOriginal, imgOriginal, 1);
 
 	
 	// cap.read(imgOriginal); // read a new frame from video
 	bool bSuccess = !imgOriginal.empty();
-	
 
 	if (!bSuccess) //if not success, break loop
 	{
@@ -265,15 +261,12 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
 		return;
 	}
 
-	Mat imgHSV;
-
-	cvtColor(imgOriginal, imgHSV, COLOR_BGR2HSV); //Convert the captured frame from BGR to HSV
+	cvtColor(imgOriginal, imgOriginal, COLOR_BGR2HSV); //Convert the captured frame from BGR to HSV
 
 	Mat imgThresholded, imgThresholded2;
-
-	inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV),
+	cv::inRange(imgOriginal, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV),
 		imgThresholded); //Threshold the image
-	inRange(imgHSV, Scalar(iLowH2, iLowS, iLowV), Scalar(iHighH2, iHighS, iHighV),
+	cv::inRange(imgOriginal, Scalar(iLowH2, iLowS, iLowV), Scalar(iHighH2, iHighS, iHighV),
 		imgThresholded2);
 
 	imgThresholded = imgThresholded | imgThresholded2;
@@ -318,10 +311,10 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
 	*wys = imgOriginal.rows;
 
 	vector<Mat> channels;
-	split(imgThresholded, channels);
+	cv::split(imgThresholded, channels);
 
 	Mat red;
-	inRange(channels[0], Scalar(0), Scalar(10), red); // red
+	cv::inRange(channels[0], Scalar(0), Scalar(10), red); // red
 	// ... do the same for blue, green, etc only changing the Scalar values and the Mat
 
 	double image_size = imgThresholded.cols * imgThresholded.rows;

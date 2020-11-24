@@ -11,9 +11,10 @@ using namespace cv;
 using namespace std;
 
 bool isPhoto = false;
-string filePath = "C:/Users/pmorl/Desktop/balucki_fajter";
+string filePath = "C:/Users/User/Desktop/balucki_fajter";
 
 int SLEEP_TIME = 5;
+int INPUT_COUNTDOWN = 4;
 
 // temporary function to test background scaling
 void scaleToWindow(sf::RenderWindow* window, sf::Sprite* toScale) {
@@ -52,9 +53,15 @@ int main(int argc, char** argv) {
 
     //Game loop
     sf::Event event{};
+	int prevGloveX = 0;
+	int prevGloveY = 0;
+	int targetGloveX = 0;
+	int targetGloveY = 0;
     int gloveX = 0;
     int gloveY = 0;
     int tempGloveV = 7;
+	int inputGatherFrame = INPUT_COUNTDOWN;
+	int szer = 0, wys = 0;
 
     while (window.isOpen()) {
         //Event polling (to event variable)
@@ -75,16 +82,24 @@ int main(int argc, char** argv) {
         glove.setPosition(gloveX, gloveY);
         enemy.enemySetPosition(baseWidth, baseHeight);
 
-        int szer = 0, wys = 0;
-        camera.runWithVideoSingleFrame(&gloveX, &gloveY, &szer, &wys);
-        gloveX = ((float)gloveX / szer) * baseWidth;
-        gloveY = ((float)gloveY / wys) * baseHeight;
-          
+		if (--inputGatherFrame == 0) {
+			inputGatherFrame = INPUT_COUNTDOWN;
+			prevGloveX = gloveX;
+			prevGloveY = gloveY;
+			camera.runWithVideoSingleFrame(&gloveX, &gloveY, &szer, &wys);
+			gloveX = ((float)gloveX / szer) * baseWidth;
+			gloveY = ((float)gloveY / wys) * baseHeight;
+			targetGloveX = gloveX;
+			targetGloveY = gloveY;
+		}
+
+		/// to correct - smoothing glove movement
+		/* gloveX = targetGloveX - (targetGloveX - prevGloveX)*((float)inputGatherFrame/INPUT_COUNTDOWN);
+		gloveX = targetGloveY - (targetGloveX - prevGloveY)*((float)inputGatherFrame/INPUT_COUNTDOWN); */          
         cout << "window x: " << window.getSize().x << " window y: " << window.getSize().y << endl;
         cout << "x: " << gloveX << " y: " << gloveY << endl;
 
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             gloveX += -tempGloveV;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
@@ -95,15 +110,15 @@ int main(int argc, char** argv) {
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
             gloveY += tempGloveV;
-        }
+        }*/
 
         window.draw(background);
         enemy.enemyDraw();
         window.draw(glove);
         window.display();
 
-        sf::Time sleepTime = sf::milliseconds(SLEEP_TIME);
-        sf::sleep(sleepTime);
+        /*sf::Time sleepTime = sf::milliseconds(SLEEP_TIME);
+        sf::sleep(sleepTime);*/
     }
 
     return 0;
