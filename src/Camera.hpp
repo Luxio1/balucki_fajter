@@ -25,9 +25,11 @@ public:
 
     Camera() {};
 
+    void morphologicalOpenAndClose(cv::Mat* imgThresholded);
     cv::Mat getThresholdedImage(cv::Mat imgOriginal);
 
 	void runWithVideoSingleFrame(int* X, int* Y, int*, int*);
+   
 
 	bool isBlow();
 
