@@ -99,3 +99,4 @@ void runWithPhoto::run() {
             break;
         }
     }
+}
