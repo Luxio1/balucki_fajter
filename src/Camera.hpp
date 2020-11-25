@@ -7,6 +7,7 @@ class Camera {
 private:
     std::string filename;
     bool _isPhoto;
+    double redPercent;
 
     const int iLowH = 170;
     const int iHighH = 180;

@@ -19,6 +19,8 @@
 			src/Camera.hpp
 			src/Enemy.cpp
 			src/Enemy.hpp
+			src/HpBar.cpp
+			src/HpBar.hpp
 			)
 
 	target_link_libraries(balucki_fajter

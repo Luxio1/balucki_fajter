@@ -1,6 +1,6 @@
 #include <iostream>
-#include "HpBar.h"
-#include "Enemy.h"
+#include "HpBar.hpp"
+#include "Enemy.hpp"
 
 void HpBar::hpSetPosition(int baseWidth, int baseHeight )
 {
@@ -18,7 +18,7 @@ sf::Sprite HpBar::getEnemySprite() {
 
 void HpBar::setHpSprite(sf::String filename) {
     //setHpTexture(filename);
-    hpTexture.loadFromFile(filePath + filename);
+    hpTexture.loadFromFile(filePath + "/Sprites/HP_bar/" + filename);
     hpSprite.setTexture(hpTexture);
     hpSprite.setOrigin(hpTexture.getSize().x / 2, hpTexture.getSize().y / 2);
     HpBar::hpSprite = hpSprite;
