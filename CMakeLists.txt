@@ -21,7 +21,9 @@
 			src/Enemy.hpp
 			src/HpBar.cpp
 			src/HpBar.hpp
-			)
+			 debugFunctions/runWithPhoto.cpp
+			 debugFunctions/runWithPhoto.hpp
+			 )
 
 	target_link_libraries(balucki_fajter
 			${OpenCV_LIBS}

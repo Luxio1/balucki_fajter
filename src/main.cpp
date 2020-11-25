@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
     glove.setScale(2, 2);
 
     //Photo and camera
-    Camera camera(filePath + "/SamplePhotos/simple/rekawica/test1.jpg", isPhoto);
+    Camera camera();
 
     //Game loop
     sf::Event event{};
