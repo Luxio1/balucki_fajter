@@ -36,6 +36,10 @@ public:
     void runWithPhoto();
     void detectRed();
 	void runWithVideoSingleFrame(int* X, int* Y, int*, int*);
+
+	bool isBlow();
+
+    void setRedPercent(double red_percent);
 };
 
 #endif //BALUCKI_FAJTER_CAMERA_H

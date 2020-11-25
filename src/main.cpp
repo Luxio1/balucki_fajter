@@ -6,6 +6,7 @@
 #include <SFML/System.hpp>
 #include "Camera.hpp"
 #include "Enemy.hpp"
+#include "HpBar.h"
 
 using namespace cv;
 using namespace std;
@@ -39,6 +40,9 @@ int main(int argc, char** argv) {
 
     //Enemy
     Enemy enemy(&window);
+
+    //HP bar
+    HpBar hpBar(&window);
 
     //Glove
     sf::Texture boxingGloveTexture;
@@ -81,6 +85,7 @@ int main(int argc, char** argv) {
         //window.clear(sf::Color::Black);
         glove.setPosition(gloveX, gloveY);
         enemy.enemySetPosition(baseWidth, baseHeight);
+        hpBar.hpSetPosition(baseWidth, baseHeight);
 
 		if (--inputGatherFrame == 0) {
 			inputGatherFrame = INPUT_COUNTDOWN;
@@ -96,8 +101,14 @@ int main(int argc, char** argv) {
 		/// to correct - smoothing glove movement
 		/* gloveX = targetGloveX - (targetGloveX - prevGloveX)*((float)inputGatherFrame/INPUT_COUNTDOWN);
 		gloveX = targetGloveY - (targetGloveX - prevGloveY)*((float)inputGatherFrame/INPUT_COUNTDOWN); */          
-        cout << "window x: " << window.getSize().x << " window y: " << window.getSize().y << endl;
-        cout << "x: " << gloveX << " y: " << gloveY << endl;
+        //cout << "window x: " << window.getSize().x << " window y: " << window.getSize().y << endl;
+        //cout << "x: " << gloveX << " y: " << gloveY << endl;
+
+        if(enemy.isCollision(glove.getGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) && camera.isBlow()){
+            //printf("-1 \n");
+            enemy.setHp();
+
+        }
 
         /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             gloveX += -tempGloveV;
@@ -114,6 +125,8 @@ int main(int argc, char** argv) {
 
         window.draw(background);
         enemy.enemyDraw();
+        hpBar.dropHpOnBar(enemy);
+        hpBar.hpBarDraw();
         window.draw(glove);
         window.display();
 

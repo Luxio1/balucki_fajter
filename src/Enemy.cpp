@@ -9,3 +9,20 @@ void Enemy::enemySetPosition(int baseWidth, int baseHeight )
 void Enemy::enemyDraw(){
 	window->draw(this->enemySprite);
 }
+
+bool Enemy::isCollision(sf::FloatRect gloveBoundingBox, sf::FloatRect fighter1BoundingBox)
+{
+    return (bool)gloveBoundingBox.intersects(fighter1BoundingBox);
+}
+
+sf::Sprite Enemy::getEnemySprite() {
+    return enemySprite;
+}
+
+void Enemy::setHp(){
+    this->HP -= 5;
+}
+
+int Enemy::getHp() const {
+    return HP;
+}

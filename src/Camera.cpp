@@ -230,8 +230,12 @@ void Camera::runWithPhoto() {
 
 }
 
-void Camera::detectRed() {
+void Camera::setRedPercent(double redPercent) {
+    this->redPercent = redPercent;
+}
 
+bool Camera::isBlow(){
+    return (redPercent > 20);
 }
 
 void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
@@ -320,8 +324,10 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
 	double image_size = imgThresholded.cols * imgThresholded.rows;
 	double red_percent = (1 - ((double)cv::countNonZero(red)) / image_size) * 100;
 
+	setRedPercent(red_percent);
+
 	//cout << "Red percent: " << red_percent << "%" << endl;
-	if (red_percent > 20) cout << "BANG!!" << endl;
+	//if (red_percent > 20) cout << "BANG!!" << endl;
 	
 	/*
 	//to ma dodac aktualna ilosc w % czerwonego na zarejestrowanym obrazie ale trzeba naprawic

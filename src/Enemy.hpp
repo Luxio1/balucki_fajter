@@ -10,6 +10,8 @@ private:
 	//int x, y;
 	//bool is_blocking;
 
+	int HP = 100;
+
 	sf::Texture enemyTexture;
 	sf::Sprite enemySprite;
 	sf::RenderWindow *window;
@@ -26,4 +28,11 @@ public:
 
 	void enemySetPosition(int baseWidth, int baseHeight);
 	void enemyDraw();
+
+	bool isCollision(sf::FloatRect gloveBoundingBox, sf::FloatRect fighter1BoundingBox);
+
+    sf::Sprite getEnemySprite();
+
+    int getHp() const;
+    void setHp();
 };
