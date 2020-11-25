@@ -34,5 +34,5 @@ public:
     sf::Sprite getEnemySprite();
 
     int getHp() const;
-    void setHp();
+    void lowerHp();
 };

@@ -3,7 +3,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include "Enemy.h"
+#include "Enemy.hpp"
 
 class HpBar {
 private:
@@ -17,14 +17,11 @@ private:
 
     sf::RenderWindow *window;
 
-    std::string filePath = "C:/Users/bigel/balucki_fajter/Sprites/HP_bar/";
+    std::string filePath;
 
 public:
-    HpBar(sf::RenderWindow *window) {
-        //hpTexture.loadFromFile(filePath + "HP_bar.png");
-        //dropHpOnBar()
-
-        //hpSprite.setOrigin(hpTexture.getSize().x / 2, hpTexture.getSize().y / 2);
+    HpBar(sf::RenderWindow* window, std::string filepath) {
+        this->filePath = filepath;
         this->window = window;
     }
 

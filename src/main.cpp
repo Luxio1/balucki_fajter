@@ -6,13 +6,13 @@
 #include <SFML/System.hpp>
 #include "Camera.hpp"
 #include "Enemy.hpp"
-#include "HpBar.h"
+#include "HpBar.hpp"
 
 using namespace cv;
 using namespace std;
 
 bool isPhoto = false;
-string filePath = "C:/Users/User/Desktop/balucki_fajter";
+string filePath = "C:/Users/pmorl/Desktop/balucki_fajter";
 
 int SLEEP_TIME = 5;
 int INPUT_COUNTDOWN = 4;
@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
     Enemy enemy(&window);
 
     //HP bar
-    HpBar hpBar(&window);
+    HpBar hpBar(&window, filePath);
 
     //Glove
     sf::Texture boxingGloveTexture;
@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
     glove.setScale(2, 2);
 
     //Photo and camera
-    Camera camera(filePath + "/SamplePhotos/simple/rekawica/test1.jpg", isPhoto);
+    Camera camera();
 
     //Game loop
     sf::Event event{};
@@ -106,7 +106,7 @@ int main(int argc, char** argv) {
 
         if(enemy.isCollision(glove.getGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) && camera.isBlow()){
             //printf("-1 \n");
-            enemy.setHp();
+            enemy.lowerHp();
 
         }
 

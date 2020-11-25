@@ -19,8 +19,8 @@ sf::Sprite Enemy::getEnemySprite() {
     return enemySprite;
 }
 
-void Enemy::setHp(){
-    this->HP -= 5;
+void Enemy::lowerHp(){
+    this->HP -= 1;
 }
 
 int Enemy::getHp() const {
