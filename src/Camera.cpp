@@ -41,7 +41,7 @@ Mat Camera::getThresholdedImage(Mat imgOriginal) {
     return imgThresholded;
 }
 
-void Camera::morphologicalOpenAndClose(Mat* imgThresholded) {
+void morphologicalOpenAndClose(Mat* imgThresholded) {
     //morphological opening (removes small objects from the foreground)
     erode(*imgThresholded, *imgThresholded, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
     dilate(*imgThresholded, *imgThresholded, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
@@ -57,6 +57,10 @@ void Camera::setRedPercent(double redPercent) {
 
 bool Camera::isBlow() {
     return (redPercent > 20);
+}
+
+void setGlovePosition(int* gloveX, int* gloveY) {
+
 }
 
 void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
