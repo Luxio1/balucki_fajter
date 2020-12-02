@@ -7,9 +7,6 @@
 #include "Camera.hpp"
 #include "Enemy.hpp"
 #include "HpBar.hpp"
-#include "ActionSprite.h"
-#include "Background.h"
-#include "Glove.h"
 
 using namespace cv;
 using namespace std;
@@ -20,6 +17,12 @@ string filePath = "C:/Users/pmorl/Desktop/balucki_fajter";
 int SLEEP_TIME = 5;
 int INPUT_COUNTDOWN = 4;
 
+// temporary function to test background scaling
+void scaleToWindow(sf::RenderWindow* window, sf::Sprite* toScale) {
+    float scX = (float)window->getSize().x / toScale->getTexture()->getSize().x;
+    float scY = (float)window->getSize().y / toScale->getTexture()->getSize().y;
+    toScale->setScale(scX, scY);
+}
 
 int main(int argc, char** argv) {
 
@@ -29,92 +32,83 @@ int main(int argc, char** argv) {
     sf::RenderWindow window(sf::VideoMode(baseWidth, baseHeight, 32), "Balucki fajter");
 
     //Background
-    Background background(&window);
-    sf::Sprite backgroundSprite = background.getBackgroundSprites();
+    sf::Texture backgroundTexture;
+    backgroundTexture.loadFromFile(filePath + "/Sprites/Backgrounds/Office_scene.png");
+    sf::Sprite background;
+    background.setTexture(backgroundTexture);
+    scaleToWindow(&window, &background);
 
     //Enemy
     Enemy enemy(&window);
 
     //HP bar
-    HpBar hpBar(&window);
-
-    //Action Sprite
-    ActionSprite actionSprite(&window);
+    HpBar hpBar(&window, filePath);
 
     //Glove
-    Glove glove(&window);
+    sf::Texture boxingGloveTexture;
+    boxingGloveTexture.loadFromFile(filePath + "/Sprites/rekawice/rekawica_lewa.png");
+    sf::Sprite glove;
+    glove.setTexture(boxingGloveTexture);
+    glove.setOrigin(boxingGloveTexture.getSize().x / 2, boxingGloveTexture.getSize().y / 2);
+    glove.setScale(2, 2);
 
     //Photo and camera
-    Camera camera(filePath + "/SamplePhotos/simple/rekawica/test1.jpg", isPhoto);
+    Camera camera();
 
     //Game loop
     sf::Event event{};
-    int prevGloveX = 0;
-    int prevGloveY = 0;
-    int targetGloveX = 0;
-    int targetGloveY = 0;
+	int prevGloveX = 0;
+	int prevGloveY = 0;
+	int targetGloveX = 0;
+	int targetGloveY = 0;
     int gloveX = 0;
     int gloveY = 0;
     int tempGloveV = 7;
-    int inputGatherFrame = INPUT_COUNTDOWN;
-    int szer = 0, wys = 0;
-    int spriteTime=0;
+	int inputGatherFrame = INPUT_COUNTDOWN;
+	int szer = 0, wys = 0;
 
     while (window.isOpen()) {
         //Event polling (to event variable)
         while (window.pollEvent(event)) {
             switch (event.type) {
-                case sf::Event::Closed:
+            case sf::Event::Closed:
+                window.close();
+                break;
+            case sf::Event::KeyPressed:
+                if (event.key.code == sf::Keyboard::Escape) {
                     window.close();
-                    break;
-                case sf::Event::KeyPressed:
-                    if (event.key.code == sf::Keyboard::Escape) {
-                        window.close();
-                    }
-                    break;
+                }
+                break;
             }
         }
 
         //window.clear(sf::Color::Black);
-        glove.gloveSetPosition(gloveX, gloveY);
+        glove.setPosition(gloveX, gloveY);
         enemy.enemySetPosition(baseWidth, baseHeight);
         hpBar.hpSetPosition(baseWidth, baseHeight);
-        actionSprite.clearActionSprite();
 
-        if (--inputGatherFrame == 0) {
-            inputGatherFrame = INPUT_COUNTDOWN;
-            prevGloveX = gloveX;
-            prevGloveY = gloveY;
-            camera.runWithVideoSingleFrame(&gloveX, &gloveY, &szer, &wys);
-            gloveX = ((float)gloveX / szer) * baseWidth;
-            gloveY = ((float)gloveY / wys) * baseHeight;
-            targetGloveX = gloveX;
-            targetGloveY = gloveY;
-        }
+		if (--inputGatherFrame == 0) {
+			inputGatherFrame = INPUT_COUNTDOWN;
+			prevGloveX = gloveX;
+			prevGloveY = gloveY;
+			camera.runWithVideoSingleFrame(&gloveX, &gloveY, &szer, &wys);
+			gloveX = ((float)gloveX / szer) * baseWidth;
+			gloveY = ((float)gloveY / wys) * baseHeight;
+			targetGloveX = gloveX;
+			targetGloveY = gloveY;
+		}
 
-        //window.clear(sf::Color::Black);
-        glove.gloveSetPosition(gloveX, gloveY);
-        enemy.enemySetPosition(baseWidth, baseHeight);
-        hpBar.hpSetPosition(baseWidth, baseHeight);
-        actionSprite.actionSpritePosition(baseWidth, baseHeight);
-
-        int szer = 0, wys = 0;
-        camera.runWithVideoSingleFrame(&gloveX, &gloveY, &szer, &wys);
-        gloveX = ((float)gloveX / szer) * baseWidth;
-        gloveY = ((float)gloveY / wys) * baseHeight;
-
+		/// to correct - smoothing glove movement
+		/* gloveX = targetGloveX - (targetGloveX - prevGloveX)*((float)inputGatherFrame/INPUT_COUNTDOWN);
+		gloveX = targetGloveY - (targetGloveX - prevGloveY)*((float)inputGatherFrame/INPUT_COUNTDOWN); */          
         //cout << "window x: " << window.getSize().x << " window y: " << window.getSize().y << endl;
         //cout << "x: " << gloveX << " y: " << gloveY << endl;
 
+        if(enemy.isCollision(glove.getGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) && camera.isBlow()){
+            //printf("-1 \n");
+            enemy.lowerHp();
 
-        if(enemy.isCollision(glove.gloveGetGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) && camera.isBlow()){
-            printf("-1 \n");
-            enemy.setHp();
-            actionSprite.setBlowActionSprite();
-            spriteTime = 10;
         }
-
-
 
         /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             gloveX += -tempGloveV;
@@ -129,22 +123,15 @@ int main(int argc, char** argv) {
             gloveY += tempGloveV;
         }*/
 
-
-
-        window.draw(backgroundSprite);
+        window.draw(background);
         enemy.enemyDraw();
         hpBar.dropHpOnBar(enemy);
         hpBar.hpBarDraw();
-        if(spriteTime>0) {
-            actionSprite.actionSpriteDraw();
-            spriteTime--;
-        }
-
-        glove.gloveDraw();
+        window.draw(glove);
         window.display();
 
-        sf::Time sleepTime = sf::milliseconds(SLEEP_TIME);
-        sf::sleep(sleepTime);
+        /*sf::Time sleepTime = sf::milliseconds(SLEEP_TIME);
+        sf::sleep(sleepTime);*/
     }
 
     return 0;
