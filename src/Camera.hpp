@@ -4,10 +4,9 @@
 
 class Camera {
 private:
-    double redPercent;
+    std::string filename;
+    bool _isPhoto;
 
-
-public:
     const int iLowH = 170;
     const int iHighH = 180;
     const int iLowH2 = 0;
@@ -22,16 +21,24 @@ public:
     int iLastX = -1;
     int iLastY = -1;
 
+    double redPercent;
 
-    Camera() {};
+public:
+    Camera(std::string path, bool is_photo) {
+        this->filename = std::move(path);
+        this->_isPhoto = is_photo;
+    }
 
-    void morphologicalOpenAndClose(cv::Mat* imgThresholded);
-    cv::Mat getThresholdedImage(cv::Mat imgOriginal);
+    bool isPhoto() const {
+        return _isPhoto;
+    };
 
-	void runWithVideoSingleFrame(int* X, int* Y, int*, int*);
-   
+    void runWithVideo();
+    void runWithPhoto();
+    void detectRed();
+    void runWithVideoSingleFrame(int* X, int* Y, int*, int*);
 
-	bool isBlow();
+    bool isBlow();
 
     void setRedPercent(double red_percent);
 };

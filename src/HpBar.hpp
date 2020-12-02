@@ -17,11 +17,14 @@ private:
 
     sf::RenderWindow *window;
 
-    std::string filePath;
+    std::string filePath = "C:/Users/bigel/balucki_fajter/Sprites/HP_bar/";
 
 public:
-    HpBar(sf::RenderWindow* window, std::string filepath) {
-        this->filePath = filepath;
+    HpBar(sf::RenderWindow *window) {
+        //actionTexture.loadFromFile(filePath + "HP_bar.png");
+        //dropHpOnBar()
+
+        //actionSprite.setOrigin(actionTexture.getSize().x / 2, actionTexture.getSize().y / 2);
         this->window = window;
     }
 
