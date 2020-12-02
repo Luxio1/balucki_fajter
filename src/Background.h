@@ -15,7 +15,7 @@ private:
     sf::Sprite background;
     sf::RenderWindow *window;
 
-    std::string filePath = "C:/Users/bigel/balucki_fajter";
+    std::string filePath = "C:/Users/User/Desktop/balucki_fajter";
 
 public:
     Background(sf::RenderWindow *window) {

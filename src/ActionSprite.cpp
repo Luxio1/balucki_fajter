@@ -1,6 +1,6 @@
 #include <iostream>
 #include "ActionSprite.h"
-#include "Enemy.h"
+#include "Enemy.hpp"
 
 void ActionSprite::actionSpritePosition(int baseWidth, int baseHeight )
 {

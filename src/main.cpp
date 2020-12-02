@@ -15,7 +15,7 @@ using namespace cv;
 using namespace std;
 
 bool isPhoto = false;
-string filePath = "C:/Users/pmorl/Desktop/balucki_fajter";
+string filePath = "C:/Users/User/Desktop/balucki_fajter";
 
 int SLEEP_TIME = 5;
 int INPUT_COUNTDOWN = 4;

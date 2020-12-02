@@ -17,7 +17,7 @@ private:
 
     sf::RenderWindow *window;
 
-    std::string filePath = "C:/Users/bigel/balucki_fajter/Sprites/HP_bar/";
+    std::string filePath = "C:/Users/User/Desktop/balucki_fajter/Sprites/HP_bar/";
 
 public:
     HpBar(sf::RenderWindow *window) {

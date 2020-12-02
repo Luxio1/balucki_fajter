@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "runWithPhoto.hpp"
@@ -98,4 +98,4 @@ void runWithPhoto::run() {
             cout << "esc key is pressed by user" << endl;
             break;
         }
-    }
+    }*/

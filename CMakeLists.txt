@@ -14,15 +14,13 @@
 			)
 
 	add_executable(balucki_fajter
-			src/main.cpp
-			src/Camera.cpp
-			src/Camera.hpp
-			src/Enemy.cpp
-			src/Enemy.hpp
-			src/HpBar.cpp
-			src/HpBar.hpp
-			 debugFunctions/runWithPhoto.cpp
-			 debugFunctions/runWithPhoto.hpp
+			src/main.cpp 
+			src/Camera.cpp src/Camera.hpp 
+			src/Enemy.cpp src/Enemy.hpp 
+			src/HpBar.cpp src/HpBar.hpp 
+			src/ActionSprite.cpp src/ActionSprite.h
+			src/Background.h src/Background.cpp 
+			src/Glove.cpp src/Glove.h
 			 )
 
 	target_link_libraries(balucki_fajter

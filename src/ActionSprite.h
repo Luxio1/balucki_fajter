@@ -3,7 +3,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include "Enemy.h"
+#include "Enemy.hpp"
 
 class ActionSprite {
 private:
@@ -17,7 +17,7 @@ private:
 
     sf::RenderWindow *window;
 
-    std::string filePath = "C:/Users/bigel/balucki_fajter/Sprites/Action_sprites/";
+    std::string filePath = "C:/Users/User/Desktop/balucki_fajter/Sprites/Action_sprites/";
 
 public:
     ActionSprite(sf::RenderWindow *window) {
