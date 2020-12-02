@@ -59,6 +59,7 @@ int main(int argc, char** argv) {
     int inputGatherFrame = INPUT_COUNTDOWN;
     int szer = 0, wys = 0;
     int spriteTime=0;
+    int enemyTime=0;
 
     while (window.isOpen()) {
         //Event polling (to event variable)
@@ -130,6 +131,8 @@ int main(int argc, char** argv) {
         }*/
 
 
+        enemyTime = enemy.enemyStance(enemyTime);
+        enemyTime++;
 
         window.draw(backgroundSprite);
         enemy.enemyDraw();

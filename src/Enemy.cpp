@@ -29,10 +29,42 @@ int Enemy::getHp() const {
     return HP;
 }
 
-void Enemy::setHpSprite(sf::String filename) {
+void Enemy::setEnemySprite(sf::String filename) {
     //setHpTexture(filename);
     enemyTexture.loadFromFile(filePath + filename);
     enemySprite.setTexture(enemyTexture);
     enemySprite.setOrigin(enemyTexture.getSize().x / 2, enemyTexture.getSize().y / 2);
     Enemy::enemySprite = enemySprite;
 }
+
+void Enemy::enemyAttackSetSprite(){
+    setEnemySprite("frajer_fajter_attack.png");
+}
+
+int Enemy::enemyStance(int time){
+    if(time == 5){
+        if(enemyTime==0) {
+            enemyStanceHigh();
+            enemyTime=1;
+        }
+        else {
+            enemyStanceLow();
+            enemyTime=0;
+        }
+        time = 0;
+    }
+    else{
+        if(enemyTime==0) {
+            enemyStanceHigh();
+        }
+        else {
+            enemyStanceLow();
+        }
+    }
+    return time;
+}
+
+void Enemy::enemyStanceHigh(){ setEnemySprite("frajer_fajter1cropped.png");}
+
+void Enemy::enemyStanceLow(){ setEnemySprite("frajer_fajter2cropped.png"); }
+
