@@ -3,7 +3,7 @@
 
 void Enemy::enemySetPosition(int baseWidth, int baseHeight )
 {
-    enemySprite.setPosition(baseWidth / 2, baseHeight * 2 / 3);
+    enemySprite.setPosition(baseWidth, baseHeight * 2 / 3);
     //enemyFaceSprite.setPosition( enemySprite.getPosition().x,  baseHeight - enemySprite.getPosition().y - (enemySprite.getTexture()->getSize().y));
 }
 
@@ -31,7 +31,11 @@ int Enemy::getHp() const {
 
 void Enemy::setEnemySprite(sf::String filename) {
     //setHpTexture(filename);
-    enemyTexture.loadFromFile(filePath + filename);
+	if (filename == "frajer_fajter1cropped.png")
+		enemyTexture = enemyStanceHighT;
+	else
+		enemyTexture = enemyStanceLowT;
+    //enemyTexture.loadFromFile(filePath + filename);
     enemySprite.setTexture(enemyTexture);
     enemySprite.setOrigin(enemyTexture.getSize().x / 2, enemyTexture.getSize().y / 2);
     Enemy::enemySprite = enemySprite;

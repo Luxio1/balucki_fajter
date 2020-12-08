@@ -16,3 +16,10 @@ void Glove::gloveDraw(){
 sf::FloatRect Glove::gloveGetGlobalBounds() {
     return glove.getGlobalBounds();
 }
+
+void Glove::gloveAttackTex() {
+	glove.setTexture(attackTexture);
+}
+void Glove::gloveDefenceTex() {
+	glove.setTexture(gloveTexture);
+}

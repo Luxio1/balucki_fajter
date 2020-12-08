@@ -12,6 +12,7 @@ private:
     int HP = 100;
 
     sf::Texture gloveTexture;
+	sf::Texture attackTexture;
     sf::Sprite glove;
     sf::RenderWindow *window;
 
@@ -21,12 +22,15 @@ public:
     Glove(sf::RenderWindow *window) {
 
         gloveTexture.loadFromFile(filePath + "/Sprites/rekawice/rekawica_lewa.png");
+		attackTexture.loadFromFile(filePath + "/Sprites/rekawice/attack_pose_glove.png");
         glove.setTexture(gloveTexture);
         this->window = window;
         glove.setOrigin(gloveTexture.getSize().x / 2, gloveTexture.getSize().y / 2);
         glove.setScale(2, 2);
     }
 
+	void gloveAttackTex();
+	void gloveDefenceTex();
 
     void gloveSetPosition(int baseWidth, int baseHeight);
 

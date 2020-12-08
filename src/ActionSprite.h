@@ -24,6 +24,10 @@ public:
         //actionTexture.loadFromFile(filePath + "HP_bar.png");
         //dropHpOnBar()
 
+		actionTexture.loadFromFile(filePath + "tys_tys.png");
+		actionSprite.setTexture(actionTexture);
+		actionSprite.setOrigin(actionTexture.getSize().x / 2, actionTexture.getSize().y / 2);
+
         //actionSprite.setOrigin(actionTexture.getSize().x / 2, actionTexture.getSize().y / 2);
         this->window = window;
     }
@@ -32,12 +36,6 @@ public:
     void actionSpriteDraw();
 
     sf::Sprite getEnemySprite();
-
-    void setActionTexture(sf::String filename);
-
-    void setActionSprite(sf::String filename);
-
-    void setBlowActionSprite();
 
     void clearActionSprite();
 };

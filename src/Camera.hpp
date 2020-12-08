@@ -33,9 +33,6 @@ public:
         return _isPhoto;
     };
 
-    void runWithVideo();
-    void runWithPhoto();
-    void detectRed();
     void runWithVideoSingleFrame(int* X, int* Y, int*, int*);
 
     bool isBlow();

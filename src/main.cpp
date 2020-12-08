@@ -59,7 +59,9 @@ int main(int argc, char** argv) {
     int inputGatherFrame = INPUT_COUNTDOWN;
     int szer = 0, wys = 0;
     int spriteTime=0;
-    int enemyTime=0;
+	int enemyTime = 0;
+
+	enemy.enemySetPosition(baseWidth/2, baseHeight);
 
     while (window.isOpen()) {
         //Event polling (to event variable)
@@ -78,9 +80,8 @@ int main(int argc, char** argv) {
 
         //window.clear(sf::Color::Black);
         glove.gloveSetPosition(gloveX, gloveY);
-        enemy.enemySetPosition(baseWidth, baseHeight);
+        //enemy.enemySetPosition(baseWidth, baseHeight);
         hpBar.hpSetPosition(baseWidth, baseHeight);
-        actionSprite.clearActionSprite();
 
         if (--inputGatherFrame == 0) {
             inputGatherFrame = INPUT_COUNTDOWN;
@@ -91,13 +92,15 @@ int main(int argc, char** argv) {
             gloveY = ((float)gloveY / wys) * baseHeight;
             targetGloveX = gloveX;
             targetGloveY = gloveY;
+
+			//anti-shaking solution
+			if (abs(prevGloveX - gloveX) < 192) gloveX = prevGloveX;
+			if (abs(prevGloveY - gloveY) < 108) gloveY = prevGloveY;
         }
 
         //window.clear(sf::Color::Black);
         glove.gloveSetPosition(gloveX, gloveY);
-        enemy.enemySetPosition(baseWidth, baseHeight);
         hpBar.hpSetPosition(baseWidth, baseHeight);
-        actionSprite.actionSpritePosition(baseWidth, baseHeight);
 
         int szer = 0, wys = 0;
         camera.runWithVideoSingleFrame(&gloveX, &gloveY, &szer, &wys);
@@ -107,32 +110,19 @@ int main(int argc, char** argv) {
         //cout << "window x: " << window.getSize().x << " window y: " << window.getSize().y << endl;
         //cout << "x: " << gloveX << " y: " << gloveY << endl;
 
+		if(camera.isBlow())
+			glove.gloveAttackTex();
+		else 
+			glove.gloveDefenceTex();
 
         if(enemy.isCollision(glove.gloveGetGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) && camera.isBlow()){
-            printf("-1 \n");
             enemy.setHp();
-            actionSprite.setBlowActionSprite();
             spriteTime = 10;
+			enemy.enemySetPosition(baseWidth/2 + (rand() % (baseWidth-300)+100 - baseWidth/2), baseHeight);
         }
 
-
-
-        /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            gloveX += -tempGloveV;
-        }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            gloveX += tempGloveV;
-        }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            gloveY += -tempGloveV;
-        }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            gloveY += tempGloveV;
-        }*/
-
-
-        enemyTime = enemy.enemyStance(enemyTime);
-        enemyTime++;
+		enemyTime = enemy.enemyStance(enemyTime);
+		enemyTime++;
 
         window.draw(backgroundSprite);
         enemy.enemyDraw();
@@ -142,12 +132,15 @@ int main(int argc, char** argv) {
             actionSprite.actionSpriteDraw();
             spriteTime--;
         }
+		else
+			actionSprite.actionSpritePosition(gloveX, gloveY);
+
 
         glove.gloveDraw();
         window.display();
 
-        sf::Time sleepTime = sf::milliseconds(SLEEP_TIME);
-        sf::sleep(sleepTime);
+        ///sf::Time sleepTime = sf::milliseconds(SLEEP_TIME);
+        ///sf::sleep(sleepTime);
     }
 
     return 0;

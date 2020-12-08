@@ -17,7 +17,10 @@ private:
     sf::Sprite enemySprite;
     sf::RenderWindow *window;
 
-    std::string filePath = "C:/Users/bigel/balucki_fajter";
+	sf::Texture enemyStanceHighT;
+	sf::Texture enemyStanceLowT;
+
+    std::string filePath = "C:/Users/User/Desktop/balucki_fajter/Sprites/Fighters/";
 
 public:
     Enemy(sf::RenderWindow *window) {
@@ -25,6 +28,8 @@ public:
         //enemySprite.setTexture(enemyTexture);
 
         //enemySprite.setOrigin(enemyTexture.getSize().x / 2, enemyTexture.getSize().y / 2);
+		enemyStanceHighT.loadFromFile(filePath + "frajer_fajter1cropped.png");
+		enemyStanceLowT.loadFromFile(filePath + "frajer_fajter2cropped.png");
         this->window = window;
     }
 
