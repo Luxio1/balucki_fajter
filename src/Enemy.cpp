@@ -8,6 +8,7 @@ void Enemy::enemySetPosition(int baseWidth, int baseHeight )
 }
 
 void Enemy::enemyDraw(){
+    setEnemySprite();
     window->draw(this->enemySprite);
     //window->draw(this->enemyFaceSprite);
 }
@@ -29,21 +30,14 @@ int Enemy::getHp() const {
     return HP;
 }
 
-void Enemy::setEnemySprite(sf::String filename) {
+void Enemy::setEnemySprite() {
     //setHpTexture(filename);
-	if (filename == "frajer_fajter1cropped.png")
-		enemyTexture = enemyStanceHighT;
-	else
-		enemyTexture = enemyStanceLowT;
     //enemyTexture.loadFromFile(filePath + filename);
     enemySprite.setTexture(enemyTexture);
     enemySprite.setOrigin(enemyTexture.getSize().x / 2, enemyTexture.getSize().y / 2);
     Enemy::enemySprite = enemySprite;
 }
 
-void Enemy::enemyAttackSetSprite(){
-    setEnemySprite("frajer_fajter_attack.png");
-}
 
 int Enemy::enemyStance(int time){
     if(time == 5){
@@ -68,16 +62,35 @@ int Enemy::enemyStance(int time){
     return time;
 }
 
-void Enemy::enemyStanceHigh(){ setEnemySprite("frajer_fajter1cropped.png");}
+void Enemy::enemyStanceHigh(){ enemyTexture = enemyTextureHigh;}
 
-void Enemy::enemyStanceLow(){ setEnemySprite("frajer_fajter2cropped.png"); }
+void Enemy::enemyStanceLow(){ enemyTexture = enemyTextureLow; }
+
 
 void Enemy::enemyStance50() {
-	enemyStanceHighT.loadFromFile(filePath + "frajer_fajter_damage50%1.png");
-	enemyStanceLowT.loadFromFile(filePath + "frajer_fajter_damage50%2.png");
+    enemyStanceHighT.loadFromFile(filePath + "frajer_fajter_damage50%1.png");
+    enemyStanceLowT.loadFromFile(filePath + "frajer_fajter_damage50%2.png");
 }
 
 void Enemy::enemyStance90() {
-	enemyStanceHighT.loadFromFile(filePath + "frajer_fajter_damage90%1.png");
-	enemyStanceLowT.loadFromFile(filePath + "frajer_fajter_damage90%2.png");
+    enemyStanceHighT.loadFromFile(filePath + "frajer_fajter_damage90%1.png");
+    enemyStanceLowT.loadFromFile(filePath + "frajer_fajter_damage90%2.png");
 }
+
+void Enemy::enemyNewPosition(int baseWidth, int baseHeight) {
+
+    enemySetPosition(baseWidth/2 + (rand() % (baseWidth-300)+100 - baseWidth/2), baseHeight);
+    //enemyStance(3);
+}
+
+void Enemy::enemyStanceHit(){
+    enemyTextureHigh = enemyStanceHitT;
+    enemyTextureLow = enemyStanceHit2T;
+}
+
+void Enemy::enemyStanceSet(){
+    enemyTextureHigh = enemyStanceHighT;
+    enemyTextureLow = enemyStanceLowT;
+}
+
+void Enemy::enemyAttackSetSprite(){ enemyTexture = enemyStanceAttackT; }

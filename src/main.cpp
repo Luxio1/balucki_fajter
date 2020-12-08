@@ -61,7 +61,9 @@ int main(int argc, char** argv) {
     int spriteTime=0;
 	int enemyTime = 0;
 
-	enemy.enemySetPosition(baseWidth/2, baseHeight);
+    int isHit=-1;
+
+    enemy.enemySetPosition(baseWidth/2, baseHeight);
 
     while (window.isOpen()) {
         //Event polling (to event variable)
@@ -93,9 +95,9 @@ int main(int argc, char** argv) {
             targetGloveX = gloveX;
             targetGloveY = gloveY;
 
-			//anti-shaking solution
-			if (abs(prevGloveX - gloveX) < 192) gloveX = prevGloveX;
-			if (abs(prevGloveY - gloveY) < 108) gloveY = prevGloveY;
+            //anti-shaking solution
+            if (abs(prevGloveX - gloveX) < 192) gloveX = prevGloveX;
+            if (abs(prevGloveY - gloveY) < 108) gloveY = prevGloveY;
         }
 
         //window.clear(sf::Color::Black);
@@ -110,21 +112,28 @@ int main(int argc, char** argv) {
         //cout << "window x: " << window.getSize().x << " window y: " << window.getSize().y << endl;
         //cout << "x: " << gloveX << " y: " << gloveY << endl;
 
-		if(camera.isBlow())
-			glove.gloveAttackTex();
-		else 
-			glove.gloveDefenceTex();
+        if(camera.isBlow())
+            glove.gloveAttackTex();
+        else
+            glove.gloveDefenceTex();
 
         if(enemy.isCollision(glove.gloveGetGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) && camera.isBlow()){
             enemy.setHp();
             spriteTime = 10;
-			enemy.enemySetPosition(baseWidth/2 + (rand() % (baseWidth-300)+100 - baseWidth/2), baseHeight);
+            enemy.enemyStanceHit();
+            //enemy.enemySetPosition(baseWidth/2 + (rand() % (baseWidth-300)+100 - baseWidth/2), baseHeight);
+            isHit = 5;
         }
 
-		enemyTime = enemy.enemyStance(enemyTime);
-		enemyTime++;
+        enemyTime = enemy.enemyStance(enemyTime);
+        enemyTime++;
 
         window.draw(backgroundSprite);
+        if(isHit--==0) {
+            enemy.enemyStanceSet();
+            enemy.enemyNewPosition(baseWidth, baseHeight);
+        }
+
         enemy.enemyDraw();
         hpBar.dropHpOnBar(&enemy);
         hpBar.hpBarDraw();
@@ -132,8 +141,8 @@ int main(int argc, char** argv) {
             actionSprite.actionSpriteDraw();
             spriteTime--;
         }
-		else
-			actionSprite.actionSpritePosition(gloveX, gloveY);
+        else
+            actionSprite.actionSpritePosition(gloveX, gloveY);
 
 
         glove.gloveDraw();

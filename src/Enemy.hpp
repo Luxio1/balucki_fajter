@@ -17,11 +17,15 @@ private:
     sf::Sprite enemySprite;
     sf::RenderWindow *window;
 
-	sf::Texture enemyStanceHighT;
-	sf::Texture enemyStanceLowT;
-	sf::Texture enemyObity;
+    sf::Texture enemyTextureHigh;
+    sf::Texture enemyTextureLow;
+    sf::Texture enemyStanceHighT;
+    sf::Texture enemyStanceLowT;
+    sf::Texture enemyStanceHitT;
+    sf::Texture enemyStanceAttackT;
+    sf::Texture enemyStanceHit2T;
 
-    std::string filePath = "C:/Users/User/Desktop/balucki_fajter/Sprites/Fighters/";
+    std::string filePath = "C:/Users/bigel/balucki_fajter/Sprites/Fighters/";
 
 public:
     Enemy(sf::RenderWindow *window) {
@@ -29,8 +33,12 @@ public:
         //enemySprite.setTexture(enemyTexture);
 
         //enemySprite.setOrigin(enemyTexture.getSize().x / 2, enemyTexture.getSize().y / 2);
-		enemyStanceHighT.loadFromFile(filePath + "frajer_fajter1cropped.png");
-		enemyStanceLowT.loadFromFile(filePath + "frajer_fajter2cropped.png");
+        enemyStanceHighT.loadFromFile(filePath + "frajer_fajter1cropped.png");
+        enemyStanceLowT.loadFromFile(filePath + "frajer_fajter2cropped.png");
+        enemyStanceHitT.loadFromFile(filePath + "frajer_fajter1_attackedt.png");
+        enemyStanceHit2T.loadFromFile(filePath + "frajer_fajter1_attacked2.png");
+        enemyStanceAttackT.loadFromFile(filePath + "frajer_fajter_attack_cropped.png");
+        enemyStanceSet();
         this->window = window;
     }
 
@@ -44,17 +52,23 @@ public:
     int getHp() const;
     void setHp();
 
-    void setEnemySprite(sf::String filename);
+    void setEnemySprite();
 
     void enemyStanceHigh();
 
     void enemyStanceLow();
 
-	void enemyStance50();
-	void enemyStance90();
-
     int enemyStance(int enemyTime);
 
+    void enemyNewPosition(int baseWidth, int baseHeight);
 
     void enemyAttackSetSprite();
+
+    void enemyStance90();
+
+    void enemyStance50();
+
+    void enemyStanceHit();
+
+    void enemyStanceSet();
 };
