@@ -21,7 +21,8 @@
 			src/ActionSprite.cpp src/ActionSprite.h
 			src/Background.h src/Background.cpp 
 			src/Glove.cpp src/Glove.h
-			 )
+			src/PlayAgain.cpp src/PlayAgain.hpp
+			)
 
 	target_link_libraries(balucki_fajter
 			${OpenCV_LIBS}

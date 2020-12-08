@@ -71,4 +71,6 @@ public:
     void enemyStanceHit();
 
     void enemyStanceSet();
+
+    void resetDamage();
 };

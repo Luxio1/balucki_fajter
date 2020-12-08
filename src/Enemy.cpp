@@ -94,3 +94,9 @@ void Enemy::enemyStanceSet(){
 }
 
 void Enemy::enemyAttackSetSprite(){ enemyTexture = enemyStanceAttackT; }
+
+void Enemy::resetDamage(){
+    enemyStanceHighT.loadFromFile(filePath + "frajer_fajter1cropped.png");
+    enemyStanceLowT.loadFromFile(filePath + "frajer_fajter2cropped.png");
+    HP=100;
+}

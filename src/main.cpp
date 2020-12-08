@@ -10,6 +10,7 @@
 #include "ActionSprite.h"
 #include "Background.h"
 #include "Glove.h"
+#include "PlayAgain.h"
 
 using namespace cv;
 using namespace std;
@@ -46,6 +47,10 @@ int main(int argc, char** argv) {
 
     //Photo and camera
     Camera camera(filePath + "/SamplePhotos/simple/rekawica/test1.jpg", isPhoto);
+
+    //play again
+    PlayAgain playAgain(&window);
+    playAgain.setPlayAgainSetPosition(baseWidth, baseHeight);
 
     //Game loop
     sf::Event event{};
@@ -144,6 +149,17 @@ int main(int argc, char** argv) {
         else
             actionSprite.actionSpritePosition(gloveX, gloveY);
 
+        if(enemy.getHp()<=0){
+            enemy.enemyStanceHit();
+            playAgain.setPlayAgainSprite();
+            playAgain.playAgainDraw();
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+                enemy.resetDamage();
+                enemy.enemyStanceSet();
+            }
+
+        }
 
         glove.gloveDraw();
         window.display();
