@@ -72,3 +72,12 @@ void Enemy::enemyStanceHigh(){ setEnemySprite("frajer_fajter1cropped.png");}
 
 void Enemy::enemyStanceLow(){ setEnemySprite("frajer_fajter2cropped.png"); }
 
+void Enemy::enemyStance50() {
+	enemyStanceHighT.loadFromFile(filePath + "frajer_fajter_damage50%1.png");
+	enemyStanceLowT.loadFromFile(filePath + "frajer_fajter_damage50%2.png");
+}
+
+void Enemy::enemyStance90() {
+	enemyStanceHighT.loadFromFile(filePath + "frajer_fajter_damage90%1.png");
+	enemyStanceLowT.loadFromFile(filePath + "frajer_fajter_damage90%2.png");
+}

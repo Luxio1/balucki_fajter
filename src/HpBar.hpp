@@ -33,7 +33,7 @@ public:
 
     sf::Sprite getEnemySprite();
 
-    void dropHpOnBar(Enemy enemy);
+    void dropHpOnBar(Enemy* enemy);
 
     void setHpTexture(sf::String filename);
 

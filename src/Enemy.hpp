@@ -19,6 +19,7 @@ private:
 
 	sf::Texture enemyStanceHighT;
 	sf::Texture enemyStanceLowT;
+	sf::Texture enemyObity;
 
     std::string filePath = "C:/Users/User/Desktop/balucki_fajter/Sprites/Fighters/";
 
@@ -48,6 +49,9 @@ public:
     void enemyStanceHigh();
 
     void enemyStanceLow();
+
+	void enemyStance50();
+	void enemyStance90();
 
     int enemyStance(int enemyTime);
 

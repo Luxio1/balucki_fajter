@@ -28,9 +28,13 @@ void HpBar::setHpTexture(sf::String filename) {
     hpTexture.loadFromFile(filePath + filename);
 }
 
-void HpBar::dropHpOnBar(Enemy enemy){
+void HpBar::dropHpOnBar(Enemy* enemy){
 	static int prevHp = 100;
-    int hp = enemy.getHp();
+    int hp = enemy->getHp();
+
+	if (hp == 50) enemy->enemyStance50();
+	else if (hp == 10) enemy->enemyStance90();
+
 	if (hp != prevHp) {
 		if (hp == 100) setHpSprite("HP_bar.png");
 		else if (hp < 100 && hp >= 90) setHpSprite("HP_bar_90%.png");
@@ -42,15 +46,13 @@ void HpBar::dropHpOnBar(Enemy enemy){
 		else if (hp < 40 && hp >= 30) setHpSprite("HP_bar_30%.png");
 		else if (hp < 30 && hp >= 20) setHpSprite("HP_bar_25%.png");
 		else if (hp < 20 && hp >= 10) setHpSprite("HP_bar_15%.png");
-		else if (hp < 10 && hp>0)  setHpSprite("HP_bar_5%.png");
-		else if (hp >= 0)    setHpSprite("HP_bar_0%.png");
+		else if (hp < 10 && hp>0) setHpSprite("HP_bar_5%.png");
+		else if (hp >= 0) setHpSprite("HP_bar_0%.png");
 	}
 
 	prevHp = hp;
 
     //else if(hp==0) setActionSprite("HP_bar_90%.png");
-
-
 }
 
 

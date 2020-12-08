@@ -126,7 +126,7 @@ int main(int argc, char** argv) {
 
         window.draw(backgroundSprite);
         enemy.enemyDraw();
-        hpBar.dropHpOnBar(enemy);
+        hpBar.dropHpOnBar(&enemy);
         hpBar.hpBarDraw();
         if(spriteTime>0) {
             actionSprite.actionSpriteDraw();
