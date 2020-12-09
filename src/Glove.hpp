@@ -16,7 +16,7 @@ private:
     sf::Sprite glove;
     sf::RenderWindow *window;
 
-    std::string filePath = "C:/Users/User/Desktop/balucki_fajter";
+    std::string filePath = "C:/Users/pmorl/Desktop/Projects/balucki_fajter";
 
 public:
     Glove(sf::RenderWindow *window) {

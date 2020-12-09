@@ -17,7 +17,7 @@ private:
 
     sf::RenderWindow *window;
 
-    std::string filePath = "C:/Users/User/Desktop/balucki_fajter/Sprites/Action_sprites/";
+    std::string filePath = "C:/Users/pmorl/Desktop/Projects/balucki_fajter/Sprites/Action_sprites/";
 
 public:
     ActionSprite(sf::RenderWindow *window) {
