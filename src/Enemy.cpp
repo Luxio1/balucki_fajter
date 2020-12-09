@@ -1,10 +1,13 @@
 #include <iostream>
 #include "Enemy.hpp"
 
-void Enemy::enemySetPosition(int baseWidth, int baseHeight )
-{
-    enemySprite.setPosition(baseWidth, baseHeight * 2 / 3);
-    //enemyFaceSprite.setPosition( enemySprite.getPosition().x,  baseHeight - enemySprite.getPosition().y - (enemySprite.getTexture()->getSize().y));
+void Enemy::enemySetPosition(){
+    enemySprite.setPosition(enemyPositionX, enemyPositionY);
+}
+
+void Enemy::enemySetBasePosition(int baseWidth, int baseHeight ){
+    enemyPositionX = baseWidth;
+    enemyPositionY = baseHeight * 2 / 3;
 }
 
 void Enemy::enemyDraw(){
@@ -79,8 +82,9 @@ void Enemy::enemyStance90() {
 
 void Enemy::enemyNewPosition(int baseWidth, int baseHeight) {
 
-    enemySetPosition(baseWidth/2 + (rand() % (baseWidth-300)+100 - baseWidth/2), baseHeight);
-    //enemyStance(3);
+    int randX = rand() % baseWidth /2 + baseWidth /4;
+    enemyPositionX = randX;
+    enemySetPosition();
 }
 
 void Enemy::enemyStanceHit(){

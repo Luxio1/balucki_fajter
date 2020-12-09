@@ -12,6 +12,8 @@ private:
 
     int HP = 100;
     int enemyTime = 0;
+    int enemyPositionX;
+    int enemyPositionY;
 
     sf::Texture enemyTexture;
     sf::Sprite enemySprite;
@@ -42,7 +44,8 @@ public:
         this->window = window;
     }
 
-    void enemySetPosition(int baseWidth, int baseHeight);
+    void enemySetPosition();
+    void enemySetBasePosition(int baseWidth, int baseHeight);
     void enemyDraw();
 
     bool isCollision(sf::FloatRect gloveBoundingBox, sf::FloatRect fighter1BoundingBox);
