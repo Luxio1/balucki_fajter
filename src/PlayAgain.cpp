@@ -1,8 +1,11 @@
-#include "PlayAgain.h"
+#include "PlayAgain.hpp"
 #include <iostream>
 #include <time.h>
-#include "Enemy.h"
+#include "Enemy.hpp"
 
+PlayAgain::PlayAgain(sf::RenderWindow* window) {
+    this->window = window;
+}
 
 
 void PlayAgain::playAgainPopUpSetPosition(int baseWidth, int baseHeight) {

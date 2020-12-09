@@ -19,15 +19,7 @@ private:
     std::string filePath = "C:/Users/pmorl/Desktop/Projects/balucki_fajter";
 
 public:
-    Glove(sf::RenderWindow *window) {
-
-        gloveTexture.loadFromFile(filePath + "/Sprites/rekawice/rekawica_lewa.png");
-		attackTexture.loadFromFile(filePath + "/Sprites/rekawice/attack_pose_glove.png");
-        glove.setTexture(gloveTexture);
-        this->window = window;
-        glove.setOrigin(gloveTexture.getSize().x / 2, gloveTexture.getSize().y / 2);
-        glove.setScale(2, 2);
-    }
+    Glove(sf::RenderWindow* window);
 
 	void gloveAttackTex();
 	void gloveDefenceTex();

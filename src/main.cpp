@@ -7,10 +7,10 @@
 #include "Camera.hpp"
 #include "Enemy.hpp"
 #include "HpBar.hpp"
-#include "ActionSprite.h"
-#include "Background.h"
-#include "Glove.h"
-#include "PlayAgain.h"
+#include "ActionSprite.hpp"
+#include "Background.hpp"
+#include "Glove.hpp"
+#include "PlayAgain.hpp"
 
 using namespace cv;
 using namespace std;

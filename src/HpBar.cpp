@@ -2,6 +2,14 @@
 #include "HpBar.hpp"
 #include "Enemy.hpp"
 
+HpBar::HpBar(sf::RenderWindow* window) {
+	//actionTexture.loadFromFile(filePath + "HP_bar.png");
+	//dropHpOnBar()
+
+	//actionSprite.setOrigin(actionTexture.getSize().x / 2, actionTexture.getSize().y / 2);
+	this->window = window;
+}
+
 void HpBar::hpSetPosition(int baseWidth, int baseHeight )
 {
     hpSprite.setPosition(baseWidth / 2, baseHeight * 1 / 5 );

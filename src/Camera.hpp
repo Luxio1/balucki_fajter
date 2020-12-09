@@ -24,10 +24,7 @@ private:
     double redPercent;
 
 public:
-    Camera(std::string path, bool is_photo) {
-        this->filename = std::move(path);
-        this->_isPhoto = is_photo;
-    }
+    Camera(std::string path, bool is_photo);
 
     bool isPhoto() const {
         return _isPhoto;

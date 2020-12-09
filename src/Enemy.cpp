@@ -1,6 +1,20 @@
 #include <iostream>
 #include "Enemy.hpp"
 
+Enemy::Enemy(sf::RenderWindow* window) {
+    //enemyTexture.loadFromFile(filePath + "/Sprites/Fighters/frajer_fajter1cropped.png");
+    //enemySprite.setTexture(enemyTexture);
+
+    //enemySprite.setOrigin(enemyTexture.getSize().x / 2, enemyTexture.getSize().y / 2);
+    enemyStanceHighT.loadFromFile(filePath + "frajer_fajter1cropped.png");
+    enemyStanceLowT.loadFromFile(filePath + "frajer_fajter2cropped.png");
+    enemyStanceHitT.loadFromFile(filePath + "frajer_fajter1_attackedt.png");
+    enemyStanceHit2T.loadFromFile(filePath + "frajer_fajter1_attacked2.png");
+    enemyStanceAttackT.loadFromFile(filePath + "frajer_fajter_attack_cropped.png");
+    enemyStanceSet();
+    this->window = window;
+}
+
 void Enemy::enemySetPosition(){
     enemySprite.setPosition(enemyPositionX, enemyPositionY);
 }
