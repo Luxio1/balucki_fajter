@@ -12,6 +12,8 @@ private:
 
     int HP = 100;
     int enemyTime = 0;
+    int enemyPositionX;
+    int enemyPositionY;
 
     sf::Texture enemyTexture;
     sf::Sprite enemySprite;
@@ -25,24 +27,13 @@ private:
     sf::Texture enemyStanceAttackT;
     sf::Texture enemyStanceHit2T;
 
-    std::string filePath = "C:/Users/bigel/balucki_fajter/Sprites/Fighters/";
+    std::string filePath = "C:/Users/pmorl/Desktop/Projects/balucki_fajter/Sprites/Fighters/";
 
 public:
-    Enemy(sf::RenderWindow *window) {
-        //enemyTexture.loadFromFile(filePath + "/Sprites/Fighters/frajer_fajter1cropped.png");
-        //enemySprite.setTexture(enemyTexture);
+    Enemy(sf::RenderWindow* window);
 
-        //enemySprite.setOrigin(enemyTexture.getSize().x / 2, enemyTexture.getSize().y / 2);
-        enemyStanceHighT.loadFromFile(filePath + "frajer_fajter1cropped.png");
-        enemyStanceLowT.loadFromFile(filePath + "frajer_fajter2cropped.png");
-        enemyStanceHitT.loadFromFile(filePath + "frajer_fajter1_attackedt.png");
-        enemyStanceHit2T.loadFromFile(filePath + "frajer_fajter1_attacked2.png");
-        enemyStanceAttackT.loadFromFile(filePath + "frajer_fajter_attack_cropped.png");
-        enemyStanceSet();
-        this->window = window;
-    }
-
-    void enemySetPosition(int baseWidth, int baseHeight);
+    void enemySetPosition();
+    void enemySetBasePosition(int baseWidth, int baseHeight);
     void enemyDraw();
 
     bool isCollision(sf::FloatRect gloveBoundingBox, sf::FloatRect fighter1BoundingBox);

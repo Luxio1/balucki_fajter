@@ -6,6 +6,10 @@
 using namespace std;
 using namespace cv;
 
+Camera::Camera(std::string path, bool is_photo) {
+    this->filename = std::move(path);
+    this->_isPhoto = is_photo;
+}
 
 void Camera::setRedPercent(double redPercent) {
     this->redPercent = redPercent;
@@ -29,9 +33,9 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
 
     Mat imgOriginal;
     cap.read(imgOriginal);
-    resize(imgOriginal, imgOriginal, Size(imgOriginal.cols/6, imgOriginal.rows/6));
     flip(imgOriginal, imgOriginal, 1);
-
+    imshow("Live preview", imgOriginal);
+    resize(imgOriginal, imgOriginal, Size(imgOriginal.cols/6, imgOriginal.rows/6));
 
     // cap.read(imgOriginal); // read a new frame from video
     bool bSuccess = !imgOriginal.empty();
@@ -75,13 +79,6 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
         int posX = dM10 / dArea;
         int posY = dM01 / dArea;
 
-        /*
-        if (iLastX >= 0 && iLastY >= 0 && posX >= 0 && posY >= 0) {
-            //Draw a red line from the previous point to the current point
-            line(imgLines, Point(posX, posY), Point(iLastX, iLastY), Scalar(0, 0, 255), 2);
-        }
-        */
-
         iLastX = posX;
         iLastY = posY;
     }
@@ -103,20 +100,4 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
 
     setRedPercent(red_percent);
 
-    //cout << "Red percent: " << red_percent << "%" << endl;
-    //if (red_percent > 20) cout << "BANG!!" << endl;
-
-    /*
-    //to ma dodac aktualna ilosc w % czerwonego na zarejestrowanym obrazie ale trzeba naprawic
-    putText(imgThresholded, to_string(red_percent), Point2f(100, 100), FONT_HERSHEY_PLAIN, 2, Scalar(0, 0, 255, 255));
-
-    Mat flipHorizontal, flipOriginalHorizontal;
-    flip(imgThresholded, flipHorizontal, 1);
-    imshow("Thresholded Image", flipHorizontal); //show the thresholded image
-
-    imgOriginal = imgOriginal + imgLines;
-
-    flip(imgOriginal, flipOriginalHorizontal, 1);
-    imshow("Original", flipOriginalHorizontal); //show the original image
-    */
 }

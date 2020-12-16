@@ -1,10 +1,27 @@
 #include <iostream>
 #include "Enemy.hpp"
 
-void Enemy::enemySetPosition(int baseWidth, int baseHeight )
-{
-    enemySprite.setPosition(baseWidth, baseHeight * 2 / 3);
-    //enemyFaceSprite.setPosition( enemySprite.getPosition().x,  baseHeight - enemySprite.getPosition().y - (enemySprite.getTexture()->getSize().y));
+Enemy::Enemy(sf::RenderWindow* window) {
+    //enemyTexture.loadFromFile(filePath + "/Sprites/Fighters/frajer_fajter1cropped.png");
+    //enemySprite.setTexture(enemyTexture);
+
+    //enemySprite.setOrigin(enemyTexture.getSize().x / 2, enemyTexture.getSize().y / 2);
+    enemyStanceHighT.loadFromFile(filePath + "frajer_fajter1cropped.png");
+    enemyStanceLowT.loadFromFile(filePath + "frajer_fajter2cropped.png");
+    enemyStanceHitT.loadFromFile(filePath + "frajer_fajter1_attackedt.png");
+    enemyStanceHit2T.loadFromFile(filePath + "frajer_fajter1_attacked2.png");
+    enemyStanceAttackT.loadFromFile(filePath + "frajer_fajter_attack_cropped.png");
+    enemyStanceSet();
+    this->window = window;
+}
+
+void Enemy::enemySetPosition(){
+    enemySprite.setPosition(enemyPositionX, enemyPositionY);
+}
+
+void Enemy::enemySetBasePosition(int baseWidth, int baseHeight ){
+    enemyPositionX = baseWidth;
+    enemyPositionY = baseHeight * 2 / 3;
 }
 
 void Enemy::enemyDraw(){
@@ -79,8 +96,9 @@ void Enemy::enemyStance90() {
 
 void Enemy::enemyNewPosition(int baseWidth, int baseHeight) {
 
-    enemySetPosition(baseWidth/2 + (rand() % (baseWidth-300)+100 - baseWidth/2), baseHeight);
-    //enemyStance(3);
+    int randX = rand() % baseWidth /2 + baseWidth /4;
+    enemyPositionX = randX;
+    enemySetPosition();
 }
 
 void Enemy::enemyStanceHit(){

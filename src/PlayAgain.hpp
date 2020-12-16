@@ -3,7 +3,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include "Enemy.h"
+#include "Enemy.hpp"
 
 class PlayAgain {
 private:
@@ -14,12 +14,10 @@ private:
 
     sf::RenderWindow *window;
 
-    std::string filePath = "C:/Users/bigel/balucki_fajter/Sprites/play_again/";
+    std::string filePath = "C:/Users/pmorl/Desktop/Projects/balucki_fajter/Sprites/play_again/";
 
 public:
-    PlayAgain(sf::RenderWindow *window) {
-        this->window = window;
-    }
+    PlayAgain(sf::RenderWindow* window);
 
     void playAgainPopUpSetPosition(int baseWidth, int baseHeight);
     void playAgainPopUpDraw();

@@ -7,10 +7,10 @@
 #include "Camera.hpp"
 #include "Enemy.hpp"
 #include "HpBar.hpp"
-#include "ActionSprite.h"
-#include "Background.h"
-#include "Glove.h"
-#include "PlayAgain.h"
+#include "ActionSprite.hpp"
+#include "Background.hpp"
+#include "Glove.hpp"
+#include "PlayAgain.hpp"
 
 using namespace cv;
 using namespace std;
@@ -68,7 +68,7 @@ int main(int argc, char** argv) {
 
     int isHit=-1;
 
-    enemy.enemySetPosition(baseWidth/2, baseHeight);
+    enemy.enemySetBasePosition(baseWidth/2, baseHeight);
 
     while (window.isOpen()) {
         //Event polling (to event variable)
@@ -139,6 +139,8 @@ int main(int argc, char** argv) {
             enemy.enemyNewPosition(baseWidth, baseHeight);
         }
 
+        enemy.enemySetPosition();
+
         enemy.enemyDraw();
         hpBar.dropHpOnBar(&enemy);
         hpBar.hpBarDraw();
@@ -158,8 +160,10 @@ int main(int argc, char** argv) {
                 enemy.resetDamage();
                 enemy.enemyStanceSet();
             }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) break;
 
         }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) break;
 
         glove.gloveDraw();
         window.display();
