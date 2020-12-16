@@ -132,3 +132,4 @@ void Enemy::resetDamage(){
     enemyStanceLowT.loadFromFile(filePath + "frajer_fajter2cropped.png");
     HP=100;
 }
+
