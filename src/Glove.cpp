@@ -1,9 +1,14 @@
-//
-// Created by bigel on 25.11.2020.
-//
+#include "Glove.hpp"
 
-#include "Glove.h"
+Glove::Glove(sf::RenderWindow* window) {
 
+    gloveTexture.loadFromFile(filePath + "/Sprites/rekawice/rekawica_lewa.png");
+    attackTexture.loadFromFile(filePath + "/Sprites/rekawice/attack_pose_glove.png");
+    glove.setTexture(gloveTexture);
+    this->window = window;
+    glove.setOrigin(gloveTexture.getSize().x / 2, gloveTexture.getSize().y / 2);
+    glove.setScale(2, 2);
+}
 
 void Glove::gloveSetPosition(int baseWidth, int baseHeight) {
     glove.setPosition(baseWidth,baseHeight);

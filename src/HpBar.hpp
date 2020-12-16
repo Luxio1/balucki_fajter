@@ -17,16 +17,10 @@ private:
 
     sf::RenderWindow *window;
 
-    std::string filePath = "C:/Users/User/Desktop/balucki_fajter/Sprites/HP_bar/";
+    std::string filePath = "C:/Users/pmorl/Desktop/Projects/balucki_fajter/Sprites/HP_bar/";
 
 public:
-    HpBar(sf::RenderWindow *window) {
-        //actionTexture.loadFromFile(filePath + "HP_bar.png");
-        //dropHpOnBar()
-
-        //actionSprite.setOrigin(actionTexture.getSize().x / 2, actionTexture.getSize().y / 2);
-        this->window = window;
-    }
+    HpBar(sf::RenderWindow* window);
 
     void hpSetPosition(int baseWidth, int baseHeight);
     void hpBarDraw();

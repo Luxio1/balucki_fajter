@@ -18,9 +18,9 @@
 			src/Camera.cpp src/Camera.hpp 
 			src/Enemy.cpp src/Enemy.hpp 
 			src/HpBar.cpp src/HpBar.hpp 
-			src/ActionSprite.cpp src/ActionSprite.h
-			src/Background.h src/Background.cpp 
-			src/Glove.cpp src/Glove.h
+			src/ActionSprite.cpp "src/ActionSprite.hpp"
+			"src/Background.hpp" src/Background.cpp 
+			src/Glove.cpp "src/Glove.hpp"
 			src/PlayAgain.cpp src/PlayAgain.hpp
 			)
 
