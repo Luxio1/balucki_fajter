@@ -122,6 +122,21 @@ int main(int argc, char** argv) {
         else
             glove.gloveDefenceTex();
 
+        /*
+         Atak przeciwnika:
+         generujemy losowa liczbe zakresu (getRandom() w enemy.cpp)
+         jeżeli wylosuje sie liczba oznaczajaca atak, sprajt przeciwnika zmienia sie na enemyStanceAttackT (enemyAttack())
+         uruchamiana jest funkcja generujaca w losowym miejscu tarcze
+         ponizszy if jest omijany lub po prostu zamieniamy w nim wykrywanie kolizji na tarcze zamiast enemy
+         --->enemy.isCollision(glove.gloveGetGlobalBounds(), TARCZA) && camera.isBlow()
+         tarcza bedzie sie pokazywala przez okreslony czas jezeli nie wykryje kolizji od hpBar gracz odejmowane bedzie np -10hp
+         jesli wykryje kolizje to wyswietla informacje ze udalo sie obronic i gra leci dalej
+
+         ewentualnie tarcza moze generowac sie przed uderzeniem i jezeli nie wykryje kolizji z rekawica
+         to dopiero jest animacja ataku
+
+         */
+
         if(enemy.isCollision(glove.gloveGetGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) && camera.isBlow()){
             enemy.setHp();
             spriteTime = 10;
