@@ -33,7 +33,9 @@ void HpBar::dropHpOnBar(Enemy* enemy){
     int hp = enemy->getHp();
 
 	if (hp == 50) enemy->enemyStance50();
-	else if (hp == 10) enemy->enemyStance90();
+	else if (hp == 19) enemy->enemyStance90();
+
+
 
 	if (hp != prevHp) {
 		if (hp == 100) setHpSprite("HP_bar.png");
