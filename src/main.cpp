@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
     int szer = 0, wys = 0;
     int spriteTime=0;
 	int enemyTime = 0;
-
+    int rand=-1;
     int isHit=-1;
 
     enemy.enemySetBasePosition(baseWidth/2, baseHeight);
@@ -136,6 +136,11 @@ int main(int argc, char** argv) {
          to dopiero jest animacja ataku
 
          */
+
+        rand = enemy.getRandom();
+        if(rand == 0){
+
+        }
 
         if(enemy.isCollision(glove.gloveGetGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) && camera.isBlow()){
             enemy.setHp();

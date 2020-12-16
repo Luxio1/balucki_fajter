@@ -55,25 +55,34 @@ void Enemy::setEnemySprite() {
     Enemy::enemySprite = enemySprite;
 }
 
+int Enemy::getRandom() {
+    srand (time(NULL));
+    isAttack = rand() % 5;
+    return isAttack;
+}
 
 int Enemy::enemyStance(int time){
     if(time == 5){
         if(enemyTime==0) {
-            enemyStanceHigh();
+            if(isAttack == 0) enemyAttack();
+            else enemyStanceHigh();
             enemyTime=1;
         }
         else {
-            enemyStanceLow();
+            if(isAttack == 0) enemyAttack();
+            else enemyStanceLow();
             enemyTime=0;
         }
         time = 0;
     }
     else{
         if(enemyTime==0) {
-            enemyStanceHigh();
+            if(isAttack == 0) enemyAttack();
+            else enemyStanceHigh();
         }
         else {
-            enemyStanceLow();
+            if(isAttack == 0) enemyAttack();
+            else enemyStanceLow();
         }
     }
     return time;
@@ -82,6 +91,13 @@ int Enemy::enemyStance(int time){
 void Enemy::enemyStanceHigh(){ enemyTexture = enemyTextureHigh;}
 
 void Enemy::enemyStanceLow(){ enemyTexture = enemyTextureLow; }
+
+void Enemy::enemyAttack(){
+    enemyAttackSetSprite();
+
+}
+
+void Enemy::enemyAttackSetSprite(){ enemyTexture = enemyStanceAttackT; }
 
 
 void Enemy::enemyStance50() {
@@ -110,8 +126,6 @@ void Enemy::enemyStanceSet(){
     enemyTextureHigh = enemyStanceHighT;
     enemyTextureLow = enemyStanceLowT;
 }
-
-void Enemy::enemyAttackSetSprite(){ enemyTexture = enemyStanceAttackT; }
 
 void Enemy::resetDamage(){
     enemyStanceHighT.loadFromFile(filePath + "frajer_fajter1cropped.png");

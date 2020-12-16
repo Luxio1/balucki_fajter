@@ -14,6 +14,7 @@ private:
     int enemyTime = 0;
     int enemyPositionX;
     int enemyPositionY;
+    int isAttack = -1;
 
     sf::Texture enemyTexture;
     sf::Sprite enemySprite;
@@ -64,4 +65,8 @@ public:
     void enemyStanceSet();
 
     void resetDamage();
+
+    int getRandom();
+
+    void enemyAttack();
 };
