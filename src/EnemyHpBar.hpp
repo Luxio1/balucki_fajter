@@ -7,8 +7,6 @@
 
 class EnemyHpBar {
 private:
-    int HP = 100;
-
     sf::Texture hpTexture;
     sf::Sprite hpSprite;
 
@@ -19,16 +17,16 @@ private:
 public:
     EnemyHpBar(sf::RenderWindow* window);
 
-    void hpSetPosition(int baseWidth, int baseHeight);
-    void hpBarDraw();
+    void setPosition(int baseWidth, int baseHeight);
+    void draw();
 
-    sf::Sprite getEnemySprite();
+    sf::Sprite getSprite();
 
-    void dropHpOnBar(Enemy* enemy);
+    void setHpOnBar(Enemy* enemy);
 
-    void setHpTexture(sf::String filename);
+    void setTexture(sf::String filename);
 
-    void resetHpBar();
+    void resetHealth();
 
-    void setHpSprite(sf::String filename);
+    void setSprite(sf::String filename);
 };

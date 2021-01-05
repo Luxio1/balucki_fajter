@@ -19,17 +19,17 @@ private:
 public:
     PlayerHpBar(sf::RenderWindow* window);
 
-    void hpSetPosition(int baseWidth, int baseHeight);
+    void setPosition(int baseWidth, int baseHeight);
 
-    void PlayerHpBar::resetHpBar();
+    void resetHealth();
 
-    void hpBarDraw();
+    void draw();
 
-    sf::Sprite getEnemySprite();
+    sf::Sprite getSprite();
 
-    void dropHpOnBar(Player* player);
+    void setHpOnBar(Player* player);
 
-    void setHpTexture(sf::String filename);
+    void setTexture(sf::String filename);
 
-    void setHpSprite(sf::String filename);
+    void setSprite(sf::String filename);
 };

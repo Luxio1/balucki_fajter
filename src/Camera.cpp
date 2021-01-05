@@ -49,6 +49,8 @@ Mat Camera::getMorphImg(Mat img) {
     return img;
 }
 
+
+
 void Camera::runWithVideoSingleFrame(int* X, int* Y, int* width, int* height) {
     VideoCapture static cap(0); //capture the video from webcam
 

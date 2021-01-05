@@ -67,7 +67,7 @@ int main(int argc, char** argv) {
 
     //play again
     PlayAgain playAgain(&window);
-    playAgain.setPlayAgainSetPosition(baseWidth, baseHeight);
+    playAgain.setPosition(baseWidth, baseHeight);
 
     //Game loop
     sf::Event event{};
@@ -106,8 +106,8 @@ int main(int argc, char** argv) {
         
         glove.setPosition(gloveX, gloveY);
 
-        playerHpBar.hpSetPosition(baseWidth, baseHeight);
-        enemyHpBar.hpSetPosition(baseWidth, baseHeight);
+        playerHpBar.setPosition(baseWidth, baseHeight);
+        enemyHpBar.setPosition(baseWidth, baseHeight);
 
         if (--inputGatherFrame == 0) {
             inputGatherFrame = INPUT_COUNTDOWN;
@@ -124,19 +124,15 @@ int main(int argc, char** argv) {
             if (abs(prevGloveY - gloveY) < 108) gloveY = prevGloveY;
         }
 
-        //window.clear(sf::Color::Black);
         glove.setPosition(gloveX,  gloveY);
 
-        playerHpBar.hpSetPosition(baseWidth, baseHeight);
-        enemyHpBar.hpSetPosition(baseWidth, baseHeight);
+        playerHpBar.setPosition(baseWidth, baseHeight);
+        enemyHpBar.setPosition(baseWidth, baseHeight);
 
         int szer = 0, wys = 0;
         camera.runWithVideoSingleFrame(&gloveX, &gloveY, &szer, &wys);
         gloveX = ((float)gloveX / szer) * baseWidth;
         gloveY = ((float)gloveY / wys) * baseHeight;
-
-        //cout << "window x: " << window.getSize().x << " window y: " << window.getSize().y << endl;
-        //cout << "x: " << gloveX << " y: " << gloveY << endl;
 
         if (camera.isBlow())
             glove.setAttackTexture();
@@ -153,7 +149,7 @@ int main(int argc, char** argv) {
         }
 
         if (enemy.isCollision(glove.getGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) && camera.isBlow()) {
-            enemy.setHp();
+            enemy.decreaseHp();
             spriteTime = 10;
             enemy.setHitStance();
             framesAfterHit = 5;
@@ -173,23 +169,23 @@ int main(int argc, char** argv) {
 
         enemy.draw();
 
-        enemyHpBar.dropHpOnBar(&enemy); //TODO: zmiana nazwy dropHpOnBar na bardziej odpowiednia
-        playerHpBar.dropHpOnBar(&player);
+        enemyHpBar.setHpOnBar(&enemy);
+        playerHpBar.setHpOnBar(&player);
 
-        enemyHpBar.hpBarDraw();
-        playerHpBar.hpBarDraw();
+        enemyHpBar.draw();
+        playerHpBar.draw();
 
         if (spriteTime > 0) {
-            actionSprite.drawActionSprite();
+            actionSprite.draw();
             spriteTime--;
         }
         else
-            actionSprite.setSpritePosition(gloveX, gloveY);
+            actionSprite.setPosition(gloveX, gloveY);
 
         if (playerMode == DEFENSE_MODE) {
 
             shield.generateShieldPosition(baseWidth, baseHeight);
-            shield.shieldDraw();
+            shield.draw();
 
             if (!shield.isCollision(glove.getGlobalBounds(), shield.getGlobalBounds())) {
                     player.setHp(player.getHp() - 1);
@@ -208,15 +204,15 @@ int main(int argc, char** argv) {
                 playAgain.setHasWon(false);
             }
 
-            playAgain.setPlayAgainSprite();
-            playAgain.playAgainDraw();
+            playAgain.setSprite();
+            playAgain.draw();
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
                 enemy.resetDamage();
                 player.resetDamage();
 
-                playerHpBar.resetHpBar();
-                enemyHpBar.resetHpBar();
+                playerHpBar.resetHealth();
+                enemyHpBar.resetHealth();
 
                 enemy.setStance();
             }

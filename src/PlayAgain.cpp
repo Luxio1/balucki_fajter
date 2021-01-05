@@ -5,36 +5,28 @@
 
 PlayAgain::PlayAgain(sf::RenderWindow* window) {
     this->window = window;
+    this->has_player_won;
 }
 
 
-void PlayAgain::playAgainPopUpSetPosition(int baseWidth, int baseHeight) {
+void PlayAgain::setPosition(int baseWidth, int baseHeight) {
     playAgainPopUpSprite.setPosition(baseWidth / 2, baseHeight / 2 );
 }
 
-
-void PlayAgain::setPlayAgainSetPosition(int baseWidth, int baseHeight) {
-    playAgainPopUpSetPosition(baseWidth, baseHeight);
-}
-
-void PlayAgain::playAgainPopUpDraw() {
+void PlayAgain::draw() {
     window->draw(this->playAgainPopUpSprite);
-}
-
-void PlayAgain::playAgainDraw(){
-    playAgainPopUpDraw();
 }
 
 void PlayAgain::setHasWon(bool has_won) {
     this->has_player_won = has_won;
 }
 
-void PlayAgain::setPlayAgainSprite() {
+void PlayAgain::setSprite() {
     if (this->has_player_won == true) {
-        setVictoryPlayAgainPopUpTexture();
+        setVictoryTexture();
     }
     else {
-        setLostPlayAgainPopUpTexture();
+        setLostTexture();
     }
 
     playAgainPopUpSprite.setTexture(playAgainPopUpTexture);
@@ -43,11 +35,11 @@ void PlayAgain::setPlayAgainSprite() {
 
 }
 
-void PlayAgain::setVictoryPlayAgainPopUpTexture() {
+void PlayAgain::setVictoryTexture() {
     playAgainPopUpTexture.loadFromFile(filePath + "victory.png");
 }
 
-void PlayAgain::setLostPlayAgainPopUpTexture() {
+void PlayAgain::setLostTexture() {
     playAgainPopUpTexture.loadFromFile(filePath + "lost.png");
 }
 

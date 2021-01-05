@@ -7,8 +7,6 @@
 
 class PlayAgain {
 private:
-
-
     sf::Texture playAgainPopUpTexture;
     sf::Sprite playAgainPopUpSprite;
 
@@ -21,19 +19,15 @@ private:
 public:
     PlayAgain(sf::RenderWindow* window);
 
-    void playAgainPopUpSetPosition(int baseWidth, int baseHeight);
-    void playAgainPopUpDraw();
+    void setPosition(int baseWidth, int baseHeight);
+    void draw();
 
-    void setPlayAgainSprite();
+    void setSprite();
 
     void setHasWon(bool has_won);
 
-    void setVictoryPlayAgainPopUpTexture();
+    void setVictoryTexture();
     
-    void setLostPlayAgainPopUpTexture();
-
-    void setPlayAgainSetPosition(int baseWidth, int baseHeight);
-
-    void playAgainDraw();
+    void setLostTexture();
 };
 

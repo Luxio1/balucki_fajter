@@ -39,7 +39,7 @@ sf::Sprite Enemy::getEnemySprite() {
     return enemySprite;
 }
 
-void Enemy::setHp(){
+void Enemy::decreaseHp(){
     this->HP -= 1;
 }
 

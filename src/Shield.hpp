@@ -6,8 +6,6 @@
 
 class Shield {
 private:
-    int HP = 100;
-
     int x, y;
 
     sf::Texture shieldTexture;
@@ -20,7 +18,7 @@ private:
 public:
     Shield(sf::RenderWindow* window);
     void setShieldPosition(int baseWidth, int baseHeight);
-    void shieldDraw();
+    void draw();
     bool isCollision(sf::FloatRect gloveBoundingBox, sf::FloatRect fighter1BoundingBox);
     sf::FloatRect Shield::getGlobalBounds();
     void generateShieldPosition(int baseWidth, int baseHeight);

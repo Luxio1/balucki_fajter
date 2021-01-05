@@ -12,7 +12,7 @@ void Shield::setShieldPosition(int X, int Y)
     shieldSprite.setPosition(X, Y);
 }
 
-void Shield::shieldDraw() {
+void Shield::draw() {
     window->draw(this->shieldSprite);
 }
 

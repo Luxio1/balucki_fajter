@@ -6,8 +6,6 @@
 
 class Glove {
 private:
-    int HP = 100;
-
     sf::Texture gloveTexture;
 	sf::Texture attackTexture;
     sf::Sprite gloveSprite;

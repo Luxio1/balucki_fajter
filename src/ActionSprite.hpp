@@ -17,9 +17,9 @@ private:
 public:
     ActionSprite(sf::RenderWindow* window);
 
-    void setSpritePosition(int baseWidth, int baseHeight);
-    void drawActionSprite();
+    void setPosition(int baseWidth, int baseHeight);
+    void draw();
 
-    sf::Sprite getEnemySprite();
+    sf::Sprite getSprite();
 };
 
