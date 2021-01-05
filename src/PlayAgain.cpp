@@ -25,16 +25,30 @@ void PlayAgain::playAgainDraw(){
     playAgainPopUpDraw();
 }
 
+void PlayAgain::setHasWon(bool has_won) {
+    this->has_player_won = has_won;
+}
+
 void PlayAgain::setPlayAgainSprite() {
-    setPlayAgainPopUpTexture();
+    if (this->has_player_won == true) {
+        setVictoryPlayAgainPopUpTexture();
+    }
+    else {
+        setLostPlayAgainPopUpTexture();
+    }
+
     playAgainPopUpSprite.setTexture(playAgainPopUpTexture);
     playAgainPopUpSprite.setOrigin(playAgainPopUpTexture.getSize().x / 2, playAgainPopUpTexture.getSize().y / 2);
     PlayAgain::playAgainPopUpSprite = playAgainPopUpSprite;
 
 }
 
-void PlayAgain::setPlayAgainPopUpTexture() {
+void PlayAgain::setVictoryPlayAgainPopUpTexture() {
     playAgainPopUpTexture.loadFromFile(filePath + "victory.png");
+}
+
+void PlayAgain::setLostPlayAgainPopUpTexture() {
+    playAgainPopUpTexture.loadFromFile(filePath + "lost.png");
 }
 
 

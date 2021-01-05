@@ -201,6 +201,14 @@ int main(int argc, char** argv) {
 
         if (enemy.getHp() <= 0 || player.getHp() <= 0) {
             enemy.enemyStanceHit();
+            
+            if (enemy.getHp() <= 0) {
+                playAgain.setHasWon(true);
+            }
+            else {
+                playAgain.setHasWon(false);
+            }
+
             playAgain.setPlayAgainSprite();
             playAgain.playAgainDraw();
 

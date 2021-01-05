@@ -16,6 +16,8 @@ private:
 
     std::string filePath = "C:/Users/pmorl/Desktop/balucki_fajter/Sprites/play_again/";
 
+    bool has_player_won;
+
 public:
     PlayAgain(sf::RenderWindow* window);
 
@@ -24,7 +26,11 @@ public:
 
     void setPlayAgainSprite();
 
-    void setPlayAgainPopUpTexture();
+    void setHasWon(bool has_won);
+
+    void setVictoryPlayAgainPopUpTexture();
+    
+    void setLostPlayAgainPopUpTexture();
 
     void setPlayAgainSetPosition(int baseWidth, int baseHeight);
 
