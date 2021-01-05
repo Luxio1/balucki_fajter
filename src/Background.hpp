@@ -6,9 +6,6 @@
 
 class Background {
 private:
-    //int x, y;
-    //bool is_blocking;
-
     int HP = 100;
 
     sf::Texture backgroundTexture;

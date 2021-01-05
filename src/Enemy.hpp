@@ -6,9 +6,6 @@
 
 class Enemy {
 private:
-    //int x, y;
-    //bool is_blocking;
-
     int HP = 100;
     int enemyTime = 0;
     int enemyPositionX;
