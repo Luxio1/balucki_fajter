@@ -144,15 +144,13 @@ int main(int argc, char** argv) {
             glove.gloveDefenceTex();
 
         rand = enemy.getRandom();
+        
         if (rand == 0) {
             playerMode = DEFENSE_MODE;
         }
         else {
             playerMode = ATTACK_MODE;
         }
-
-        ;
-
 
         if (enemy.isCollision(glove.getGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) && camera.isBlow()) {
             enemy.setHp();
@@ -190,7 +188,7 @@ int main(int argc, char** argv) {
 
         if (playerMode == DEFENSE_MODE) {
 
-            shield.shieldPosition(baseWidth / 2, baseHeight / 2);
+            shield.generateShieldPosition(baseWidth, baseHeight);
             shield.shieldDraw();
 
             if (!shield.isCollision(glove.getGlobalBounds(), shield.getGlobalBounds())) {

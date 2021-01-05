@@ -7,7 +7,7 @@ Shield::Shield(sf::RenderWindow* window) {
     this->window = window;
 }
 
-void Shield::shieldPosition(int X, int Y)
+void Shield::setShieldPosition(int X, int Y)
 {
     shieldSprite.setPosition(X, Y);
 }
@@ -24,4 +24,13 @@ bool Shield::isCollision(sf::FloatRect gloveBoundingBox, sf::FloatRect shieldBou
 
 sf::FloatRect Shield::getGlobalBounds() {
     return shieldSprite.getGlobalBounds();
+}
+
+void Shield::generateShieldPosition(int baseWidth, int baseHeight) {
+    int randX = rand() % baseWidth/2;
+    int randY = rand() % baseHeight/2;
+
+    this->x = randX;
+    this->y = randY;
+    setShieldPosition(this->x, this->y);
 }
