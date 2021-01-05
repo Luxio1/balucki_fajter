@@ -20,5 +20,7 @@ public:
 
     void shieldPosition(int baseWidth, int baseHeight);
     void shieldDraw();
+    bool isCollision(sf::FloatRect gloveBoundingBox, sf::FloatRect fighter1BoundingBox);
+    sf::FloatRect Shield::getGlobalBounds();
 };
 

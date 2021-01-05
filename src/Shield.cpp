@@ -16,3 +16,12 @@ void Shield::shieldDraw() {
     window->draw(this->shieldSprite);
 }
 
+
+bool Shield::isCollision(sf::FloatRect gloveBoundingBox, sf::FloatRect shieldBoundingBox)
+{
+    return (bool)gloveBoundingBox.intersects(shieldBoundingBox);
+}
+
+sf::FloatRect Shield::getGlobalBounds() {
+    return shieldSprite.getGlobalBounds();
+}

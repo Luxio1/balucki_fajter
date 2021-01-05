@@ -154,7 +154,7 @@ int main(int argc, char** argv) {
         ;
 
 
-        if (enemy.isCollision(glove.gloveGetGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) && camera.isBlow()) {
+        if (enemy.isCollision(glove.getGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) && camera.isBlow()) {
             enemy.setHp();
             spriteTime = 10;
             enemy.enemyStanceHit();
@@ -189,14 +189,18 @@ int main(int argc, char** argv) {
             actionSprite.actionSpritePosition(gloveX, gloveY);
 
         if (playerMode == DEFENSE_MODE) {
-            bool isHpDecreased = false;
-            if (isHpDecreased == false) {
-                player.setHp(player.getHp() - 1);
-                isHpDecreased = true;
-            }
 
             shield.shieldPosition(baseWidth / 2, baseHeight / 2);
             shield.shieldDraw();
+
+            if (!shield.isCollision(glove.getGlobalBounds(), shield.getGlobalBounds())) {
+                    player.setHp(player.getHp() - 1);
+
+                    enemy.enemyStanceSet();     //TODO: nie zmienia pozycji przeciwnika
+                    enemy.enemyNewPosition(baseWidth, baseHeight);
+            }
+
+
         }
 
         if (enemy.getHp() <= 0 || player.getHp() <= 0) {

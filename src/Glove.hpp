@@ -13,7 +13,7 @@ private:
 
     sf::Texture gloveTexture;
 	sf::Texture attackTexture;
-    sf::Sprite glove;
+    sf::Sprite gloveSprite;
     sf::RenderWindow *window;
 
     std::string filePath = "C:/Users/pmorl/Desktop/balucki_fajter";
@@ -28,6 +28,6 @@ public:
 
     void gloveDraw();
 
-    sf::FloatRect gloveGetGlobalBounds();
+    sf::FloatRect getGlobalBounds();
 };
 
