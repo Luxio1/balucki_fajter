@@ -11,20 +11,20 @@ Enemy::Enemy(sf::RenderWindow* window) {
     enemyStanceHitT.loadFromFile(filePath + "frajer_fajter1_attackedt.png");
     enemyStanceHit2T.loadFromFile(filePath + "frajer_fajter1_attacked2.png");
     enemyStanceAttackT.loadFromFile(filePath + "frajer_fajter_attack_cropped.png");
-    enemyStanceSet();
+    setStance();
     this->window = window;
 }
 
-void Enemy::enemySetPosition(){
+void Enemy::setPosition(){
     enemySprite.setPosition(enemyPositionX, enemyPositionY);
 }
 
-void Enemy::enemySetBasePosition(int baseWidth, int baseHeight ){
+void Enemy::setBasePosition(int baseWidth, int baseHeight ){
     enemyPositionX = baseWidth;
     enemyPositionY = baseHeight * 2 / 3;
 }
 
-void Enemy::enemyDraw(){
+void Enemy::draw(){
     setEnemySprite();
     window->draw(this->enemySprite);
     //window->draw(this->enemyFaceSprite);
@@ -61,68 +61,68 @@ int Enemy::getRandom() {
     return isAttack;
 }
 
-int Enemy::enemyStance(int time){
+int Enemy::makeMovableEnemyStance(int time){
     if(time == 5){
         if(enemyTime==0) {
-            if(isAttack == 0) enemyAttack();
-            else enemyStanceHigh();
+            if(isAttack == 0) attack();
+            else setEnemyStanceHigh();
             enemyTime=1;
         }
         else {
-            if(isAttack == 0) enemyAttack();
-            else enemyStanceLow();
+            if(isAttack == 0) attack();
+            else setEnemyStanceLow();
             enemyTime=0;
         }
         time = 0;
     }
     else{
         if(enemyTime==0) {
-            if(isAttack == 0) enemyAttack();
-            else enemyStanceHigh();
+            if(isAttack == 0) attack();
+            else setEnemyStanceHigh();
         }
         else {
-            if(isAttack == 0) enemyAttack();
-            else enemyStanceLow();
+            if(isAttack == 0) attack();
+            else setEnemyStanceLow();
         }
     }
     return time;
 }
 
-void Enemy::enemyStanceHigh(){ enemyTexture = enemyTextureHigh;}
+void Enemy::setEnemyStanceHigh(){ enemyTexture = enemyTextureHigh;}
 
-void Enemy::enemyStanceLow(){ enemyTexture = enemyTextureLow; }
+void Enemy::setEnemyStanceLow(){ enemyTexture = enemyTextureLow; }
 
-void Enemy::enemyAttack(){
-    enemyAttackSetSprite();
+void Enemy::attack(){
+    setAttackSprite();
 
 }
 
-void Enemy::enemyAttackSetSprite(){ enemyTexture = enemyStanceAttackT; }
+void Enemy::setAttackSprite(){ enemyTexture = enemyStanceAttackT; }
 
 
-void Enemy::enemyStance50() {
+void Enemy::setStance50() {
     enemyStanceHighT.loadFromFile(filePath + "frajer_fajter_damage50%1.png");
     enemyStanceLowT.loadFromFile(filePath + "frajer_fajter_damage50%2.png");
 }
 
-void Enemy::enemyStance90() {
+void Enemy::setStance90() {
     enemyStanceHighT.loadFromFile(filePath + "frajer_fajter_damage90%1.png");
     enemyStanceLowT.loadFromFile(filePath + "frajer_fajter_damage90%2.png");
 }
 
-void Enemy::enemyNewPosition(int baseWidth, int baseHeight) {
+void Enemy::setNewPostion(int baseWidth, int baseHeight) {
 
     int randX = rand() % baseWidth /2 + baseWidth /4;
     enemyPositionX = randX;
-    enemySetPosition();
+    setPosition();
 }
 
-void Enemy::enemyStanceHit(){
+void Enemy::setHitStance(){
     enemyTextureHigh = enemyStanceHitT;
     enemyTextureLow = enemyStanceHit2T;
 }
 
-void Enemy::enemyStanceSet(){
+void Enemy::setStance(){
     enemyTextureHigh = enemyStanceHighT;
     enemyTextureLow = enemyStanceLowT;
 }

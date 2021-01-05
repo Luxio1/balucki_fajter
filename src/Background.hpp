@@ -6,8 +6,6 @@
 
 class Background {
 private:
-    int HP = 100;
-
     sf::Texture backgroundTexture;
     sf::Sprite background;
     sf::RenderWindow *window;

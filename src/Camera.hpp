@@ -23,17 +23,17 @@ private:
 
     double redPercent;
 
-public:
-
     cv::Mat getImage(cv::VideoCapture cap);
 
     cv::Mat thresholdImg(cv::Mat img);
 
     cv::Mat getMorphImg(cv::Mat img);
 
-    void runWithVideoSingleFrame(int* X, int* Y, int*, int*);
+    void setRedPercent(double redPercent);
+
+public:
+    void runWithVideoSingleFrame(int* X, int* Y, int* width, int* height);
 
     bool isBlow();
 
-    void setRedPercent(double red_percent);
 };

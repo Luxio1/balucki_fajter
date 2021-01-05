@@ -14,20 +14,17 @@ ActionSprite::ActionSprite(sf::RenderWindow* window) {
     this->window = window;
 }
 
-void ActionSprite::actionSpritePosition(int X, int Y )
+void ActionSprite::setSpritePosition(int X, int Y )
 {
     actionSprite.setPosition(X,Y);
 }
 
-void ActionSprite::actionSpriteDraw(){
+void ActionSprite::drawActionSprite(){
     window->draw(this->actionSprite);
 }
 
 
 sf::Sprite ActionSprite::getEnemySprite() {
     return actionSprite;
-}
-
-void ActionSprite::clearActionSprite(){
 }
 

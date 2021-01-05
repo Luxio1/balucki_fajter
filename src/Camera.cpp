@@ -49,7 +49,7 @@ Mat Camera::getMorphImg(Mat img) {
     return img;
 }
 
-void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
+void Camera::runWithVideoSingleFrame(int* X, int* Y, int* width, int* height) {
     VideoCapture static cap(0); //capture the video from webcam
 
     if (!cap.isOpened())  // if not success, exit program
@@ -93,8 +93,8 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
 
     *X = iLastX;
     *Y = iLastY;
-    *szer = workImg.cols;
-    *wys = workImg.rows;
+    *width = workImg.cols;
+    *height = workImg.rows;
 
     vector<Mat> channels;
     cv::split(imgThresholded, channels);

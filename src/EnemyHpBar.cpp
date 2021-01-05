@@ -41,8 +41,8 @@ void EnemyHpBar::dropHpOnBar(Enemy* enemy){
 	static int prevHp = 100;
     int hp = enemy->getHp();
 
-	if (hp == 50) enemy->enemyStance50();
-	else if (hp == 19) enemy->enemyStance90();
+	if (hp == 50) enemy->setStance50();
+	else if (hp == 19) enemy->setStance90();
 
 
 

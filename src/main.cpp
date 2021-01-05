@@ -86,7 +86,7 @@ int main(int argc, char** argv) {
     int framesAfterHit = -1;
 
 
-    enemy.enemySetBasePosition(baseWidth / 2, baseHeight);
+    enemy.setBasePosition(baseWidth / 2, baseHeight);
 
     while (window.isOpen()) {
         //Event polling (to event variable)
@@ -155,23 +155,23 @@ int main(int argc, char** argv) {
         if (enemy.isCollision(glove.getGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) && camera.isBlow()) {
             enemy.setHp();
             spriteTime = 10;
-            enemy.enemyStanceHit();
+            enemy.setHitStance();
             framesAfterHit = 5;
         }
 
-        enemyTime = enemy.enemyStance(enemyTime);
+        enemyTime = enemy.makeMovableEnemyStance(enemyTime);
         enemyTime++;
 
         window.draw(backgroundSprite);
         
         if (framesAfterHit-- == 0) {
-            enemy.enemyStanceSet();
-            enemy.enemyNewPosition(baseWidth, baseHeight);
+            enemy.setStance();
+            enemy.setNewPostion(baseWidth, baseHeight);
         }
 
-        enemy.enemySetPosition();
+        enemy.setPosition();
 
-        enemy.enemyDraw();
+        enemy.draw();
 
         enemyHpBar.dropHpOnBar(&enemy); //TODO: zmiana nazwy dropHpOnBar na bardziej odpowiednia
         playerHpBar.dropHpOnBar(&player);
@@ -180,11 +180,11 @@ int main(int argc, char** argv) {
         playerHpBar.hpBarDraw();
 
         if (spriteTime > 0) {
-            actionSprite.actionSpriteDraw();
+            actionSprite.drawActionSprite();
             spriteTime--;
         }
         else
-            actionSprite.actionSpritePosition(gloveX, gloveY);
+            actionSprite.setSpritePosition(gloveX, gloveY);
 
         if (playerMode == DEFENSE_MODE) {
 
@@ -199,7 +199,7 @@ int main(int argc, char** argv) {
         }
 
         if (enemy.getHp() <= 0 || player.getHp() <= 0) {
-            enemy.enemyStanceHit();
+            enemy.setHitStance();
             
             if (enemy.getHp() <= 0) {
                 playAgain.setHasWon(true);
@@ -218,7 +218,7 @@ int main(int argc, char** argv) {
                 playerHpBar.resetHpBar();
                 enemyHpBar.resetHpBar();
 
-                enemy.enemyStanceSet();
+                enemy.setStance();
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) break;
 

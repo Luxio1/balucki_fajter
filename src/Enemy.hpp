@@ -29,9 +29,9 @@ private:
 public:
     Enemy(sf::RenderWindow* window);
 
-    void enemySetPosition();
-    void enemySetBasePosition(int baseWidth, int baseHeight);
-    void enemyDraw();
+    void setPosition();
+    void setBasePosition(int baseWidth, int baseHeight);
+    void draw();
 
     bool isCollision(sf::FloatRect gloveBoundingBox, sf::FloatRect fighter1BoundingBox);
 
@@ -42,27 +42,27 @@ public:
 
     void setEnemySprite();
 
-    void enemyStanceHigh();
+    void setEnemyStanceHigh();
 
-    void enemyStanceLow();
+    void setEnemyStanceLow();
 
-    int enemyStance(int enemyTime);
+    int makeMovableEnemyStance(int enemyTime);
 
-    void enemyNewPosition(int baseWidth, int baseHeight);
+    void setNewPostion(int baseWidth, int baseHeight);
 
-    void enemyAttackSetSprite();
+    void setAttackSprite();
 
-    void enemyStance90();
+    void setStance90();
 
-    void enemyStance50();
+    void setStance50();
 
-    void enemyStanceHit();
+    void setHitStance();
 
-    void enemyStanceSet();
+    void setStance();
 
     void resetDamage();
 
     int getRandom();
 
-    void enemyAttack();
+    void attack();
 };

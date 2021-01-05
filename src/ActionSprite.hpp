@@ -7,8 +7,6 @@
 
 class ActionSprite {
 private:
-    int HP = 100;
-
     sf::Texture actionTexture;
     sf::Sprite actionSprite;
 
@@ -19,11 +17,9 @@ private:
 public:
     ActionSprite(sf::RenderWindow* window);
 
-    void actionSpritePosition(int baseWidth, int baseHeight);
-    void actionSpriteDraw();
+    void setSpritePosition(int baseWidth, int baseHeight);
+    void drawActionSprite();
 
     sf::Sprite getEnemySprite();
-
-    void clearActionSprite();
 };
 
