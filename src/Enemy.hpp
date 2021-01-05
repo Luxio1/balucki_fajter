@@ -3,7 +3,6 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include "Enemy.hpp"
 
 class Enemy {
 private:

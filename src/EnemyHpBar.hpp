@@ -5,7 +5,7 @@
 #include <SFML/System.hpp>
 #include "Enemy.hpp"
 
-class HpBar {
+class EnemyHpBar {
 private:
     //int x, y;
     //bool is_blocking;
@@ -20,7 +20,7 @@ private:
     std::string filePath = "C:/Users/pmorl/Desktop/balucki_fajter/Sprites/HP_bar/";
 
 public:
-    HpBar(sf::RenderWindow* window);
+    EnemyHpBar(sf::RenderWindow* window);
 
     void hpSetPosition(int baseWidth, int baseHeight);
     void hpBarDraw();
@@ -30,6 +30,8 @@ public:
     void dropHpOnBar(Enemy* enemy);
 
     void setHpTexture(sf::String filename);
+
+    void resetHpBar();
 
     void setHpSprite(sf::String filename);
 };

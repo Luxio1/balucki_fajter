@@ -6,7 +6,9 @@
 #include <SFML/System.hpp>
 #include "Camera.hpp"
 #include "Enemy.hpp"
-#include "HpBar.hpp"
+#include "EnemyHpBar.hpp"
+#include "PlayerHpBar.hpp"
+#include "Player.hpp"
 #include "ActionSprite.hpp"
 #include "Background.hpp"
 #include "Glove.hpp"
@@ -40,12 +42,16 @@ int main(int argc, char** argv) {
     //Background
     Background background(&window);
     sf::Sprite backgroundSprite = background.getBackgroundSprites();
+    
+    //Player
+    Player player;
 
     //Enemy
     Enemy enemy(&window);
-
+    
     //HP bar
-    HpBar hpBar(&window);
+    PlayerHpBar playerHpBar(&window);
+    EnemyHpBar enemyHpBar(&window);
 
     //Action Sprite
     ActionSprite actionSprite(&window);
@@ -97,10 +103,11 @@ int main(int argc, char** argv) {
             }
         }
 
-        //window.clear(sf::Color::Black);
+        
         glove.gloveSetPosition(gloveX, gloveY);
-        //enemy.enemySetPosition(baseWidth, baseHeight);
-        hpBar.hpSetPosition(baseWidth, baseHeight);
+
+        playerHpBar.hpSetPosition(baseWidth, baseHeight);
+        enemyHpBar.hpSetPosition(baseWidth, baseHeight);
 
         if (--inputGatherFrame == 0) {
             inputGatherFrame = INPUT_COUNTDOWN;
@@ -118,8 +125,10 @@ int main(int argc, char** argv) {
         }
 
         //window.clear(sf::Color::Black);
-        glove.gloveSetPosition(gloveX, gloveY);
-        hpBar.hpSetPosition(baseWidth, baseHeight);
+        glove.gloveSetPosition(gloveX,  gloveY);
+
+        playerHpBar.hpSetPosition(baseWidth, baseHeight);
+        enemyHpBar.hpSetPosition(baseWidth, baseHeight);
 
         int szer = 0, wys = 0;
         camera.runWithVideoSingleFrame(&gloveX, &gloveY, &szer, &wys);
@@ -180,8 +189,13 @@ int main(int argc, char** argv) {
         enemy.enemySetPosition();
 
         enemy.enemyDraw();
-        hpBar.dropHpOnBar(&enemy);
-        hpBar.hpBarDraw();
+
+        enemyHpBar.dropHpOnBar(&enemy); //TODO: zmiana nazwy dropHpOnBar na bardziej odpowiednia
+        playerHpBar.dropHpOnBar(&player);
+
+        enemyHpBar.hpBarDraw();
+        playerHpBar.hpBarDraw();
+
         if (spriteTime > 0) {
             actionSprite.actionSpriteDraw();
             spriteTime--;
@@ -189,13 +203,29 @@ int main(int argc, char** argv) {
         else
             actionSprite.actionSpritePosition(gloveX, gloveY);
 
-        if (enemy.getHp() <= 0) {
+        if (playerMode == DEFENSE_MODE) {
+            bool isHpDecreased = false;
+            if (isHpDecreased == false) {
+                player.setHp(player.getHp() - 1);
+                isHpDecreased = true;
+            }
+
+            shield.shieldPosition(baseWidth / 2, baseHeight / 2);
+            shield.shieldDraw();
+        }
+
+        if (enemy.getHp() <= 0 || player.getHp() <= 0) {
             enemy.enemyStanceHit();
             playAgain.setPlayAgainSprite();
             playAgain.playAgainDraw();
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
                 enemy.resetDamage();
+                player.resetDamage();
+
+                playerHpBar.resetHpBar();
+                enemyHpBar.resetHpBar();
+
                 enemy.enemyStanceSet();
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) break;
@@ -204,11 +234,6 @@ int main(int argc, char** argv) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) break;
 
         glove.gloveDraw();
-
-        if (playerMode == DEFENSE_MODE) {
-            shield.shieldPosition(baseWidth / 2, baseHeight / 2);
-            shield.shieldDraw();
-        }
 
         window.display();
 

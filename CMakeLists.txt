@@ -15,20 +15,16 @@
 
 	add_executable(balucki_fajter
 			src/main.cpp 
-			src/Camera.cpp src/Camera.hpp
-			src/Enemy.cpp src/Enemy.hpp
-			src/HpBar.cpp src/HpBar.hpp
-			src/ActionSprite.cpp
-			src/ActionSprite.hpp
-			src/Background.hpp
-			src/Background.cpp
-			src/Glove.cpp
-			src/Glove.hpp
-			src/PlayAgain.cpp
-			src/PlayAgain.hpp
-			src/Shield.cpp
-			src/Shield.hpp
-			)
+			src/Camera.cpp			src/Camera.hpp
+			src/Enemy.cpp			src/Enemy.hpp
+			src/EnemyHpBar.cpp		src/EnemyHpBar.hpp
+			src/ActionSprite.cpp	src/ActionSprite.hpp
+			src/Background.hpp		src/Background.cpp
+			src/Glove.cpp			src/Glove.hpp
+			src/PlayAgain.cpp		src/PlayAgain.hpp
+			src/Shield.cpp			src/Shield.hpp
+			src/PlayerHpBar.cpp		src/PlayerHpBar.hpp
+			src/Player.cpp			src/Player.hpp)
 
 	target_link_libraries(balucki_fajter
 			${OpenCV_LIBS}
