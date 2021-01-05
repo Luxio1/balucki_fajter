@@ -10,11 +10,11 @@ Glove::Glove(sf::RenderWindow* window) {
     gloveSprite.setScale(2, 2);
 }
 
-void Glove::gloveSetPosition(int baseWidth, int baseHeight) {
+void Glove::setPosition(int baseWidth, int baseHeight) {
     gloveSprite.setPosition(baseWidth,baseHeight);
 }
 
-void Glove::gloveDraw(){
+void Glove::draw(){
     window->draw(this->gloveSprite);
 }
 
@@ -22,9 +22,9 @@ sf::FloatRect Glove::getGlobalBounds() {
     return gloveSprite.getGlobalBounds();
 }
 
-void Glove::gloveAttackTex() {
+void Glove::setAttackTexture() {
 	gloveSprite.setTexture(attackTexture);
 }
-void Glove::gloveDefenceTex() {
+void Glove::setDefenceTexture() {
 	gloveSprite.setTexture(gloveTexture);
 }

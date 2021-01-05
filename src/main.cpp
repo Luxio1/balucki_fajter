@@ -104,7 +104,7 @@ int main(int argc, char** argv) {
         }
 
         
-        glove.gloveSetPosition(gloveX, gloveY);
+        glove.setPosition(gloveX, gloveY);
 
         playerHpBar.hpSetPosition(baseWidth, baseHeight);
         enemyHpBar.hpSetPosition(baseWidth, baseHeight);
@@ -125,7 +125,7 @@ int main(int argc, char** argv) {
         }
 
         //window.clear(sf::Color::Black);
-        glove.gloveSetPosition(gloveX,  gloveY);
+        glove.setPosition(gloveX,  gloveY);
 
         playerHpBar.hpSetPosition(baseWidth, baseHeight);
         enemyHpBar.hpSetPosition(baseWidth, baseHeight);
@@ -139,9 +139,9 @@ int main(int argc, char** argv) {
         //cout << "x: " << gloveX << " y: " << gloveY << endl;
 
         if (camera.isBlow())
-            glove.gloveAttackTex();
+            glove.setAttackTexture();
         else
-            glove.gloveDefenceTex();
+            glove.setDefenceTexture();
 
         rand = enemy.getRandom();
         
@@ -225,7 +225,7 @@ int main(int argc, char** argv) {
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) break;
 
-        glove.gloveDraw();
+        glove.draw();
 
         window.display();
 

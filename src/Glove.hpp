@@ -18,12 +18,12 @@ private:
 public:
     Glove(sf::RenderWindow* window);
 
-	void gloveAttackTex();
-	void gloveDefenceTex();
+	void setAttackTexture();
+	void setDefenceTexture();
 
-    void gloveSetPosition(int baseWidth, int baseHeight);
+    void setPosition(int baseWidth, int baseHeight);
 
-    void gloveDraw();
+    void draw();
 
     sf::FloatRect getGlobalBounds();
 };
