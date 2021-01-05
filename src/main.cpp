@@ -11,15 +11,20 @@
 #include "Background.hpp"
 #include "Glove.hpp"
 #include "PlayAgain.hpp"
+#include "Shield.hpp"
 
 using namespace cv;
 using namespace std;
 
-bool isPhoto = false;
-string filePath = "C:/Users/User/Desktop/balucki_fajter";
 
 int SLEEP_TIME = 5;
 int INPUT_COUNTDOWN = 4;
+
+enum playerMode {
+    ATTACK_MODE,
+    DEFENSE_MODE
+};
+
 
 
 int main(int argc, char** argv) {
@@ -28,6 +33,9 @@ int main(int argc, char** argv) {
     int baseWidth = 1920;
     int baseHeight = 1080;
     sf::RenderWindow window(sf::VideoMode(baseWidth, baseHeight, 32), "Balucki fajter");
+
+    //Player mode
+    playerMode playerMode;
 
     //Background
     Background background(&window);
@@ -42,11 +50,14 @@ int main(int argc, char** argv) {
     //Action Sprite
     ActionSprite actionSprite(&window);
 
+    //Shield Sprite
+    Shield shield(&window);
+
     //Glove
     Glove glove(&window);
 
     //Photo and camera
-    Camera camera(filePath + "/SamplePhotos/simple/rekawica/test1.jpg", isPhoto);
+    Camera camera;
 
     //play again
     PlayAgain playAgain(&window);
@@ -63,25 +74,26 @@ int main(int argc, char** argv) {
     int tempGloveV = 7;
     int inputGatherFrame = INPUT_COUNTDOWN;
     int szer = 0, wys = 0;
-    int spriteTime=0;
-	int enemyTime = 0;
-    int rand=-1;
-    int isHit=-1;
+    int spriteTime = 0;
+    int enemyTime = 0;
+    int rand = -1;
+    int isHit = -1;
 
-    enemy.enemySetBasePosition(baseWidth/2, baseHeight);
+
+    enemy.enemySetBasePosition(baseWidth / 2, baseHeight);
 
     while (window.isOpen()) {
         //Event polling (to event variable)
         while (window.pollEvent(event)) {
             switch (event.type) {
-                case sf::Event::Closed:
+            case sf::Event::Closed:
+                window.close();
+                break;
+            case sf::Event::KeyPressed:
+                if (event.key.code == sf::Keyboard::Escape) {
                     window.close();
-                    break;
-                case sf::Event::KeyPressed:
-                    if (event.key.code == sf::Keyboard::Escape) {
-                        window.close();
-                    }
-                    break;
+                }
+                break;
             }
         }
 
@@ -117,7 +129,7 @@ int main(int argc, char** argv) {
         //cout << "window x: " << window.getSize().x << " window y: " << window.getSize().y << endl;
         //cout << "x: " << gloveX << " y: " << gloveY << endl;
 
-        if(camera.isBlow())
+        if (camera.isBlow())
             glove.gloveAttackTex();
         else
             glove.gloveDefenceTex();
@@ -138,11 +150,17 @@ int main(int argc, char** argv) {
          */
 
         rand = enemy.getRandom();
-        if(rand == 0){
-
+        if (rand == 0) {
+            playerMode = DEFENSE_MODE;
+        }
+        else {
+            playerMode = ATTACK_MODE;
         }
 
-        if(enemy.isCollision(glove.gloveGetGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) && camera.isBlow()){
+        ;
+
+
+        if (enemy.isCollision(glove.gloveGetGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) && camera.isBlow()) {
             enemy.setHp();
             spriteTime = 10;
             enemy.enemyStanceHit();
@@ -154,7 +172,7 @@ int main(int argc, char** argv) {
         enemyTime++;
 
         window.draw(backgroundSprite);
-        if(isHit--==0) {
+        if (isHit-- == 0) {
             enemy.enemyStanceSet();
             enemy.enemyNewPosition(baseWidth, baseHeight);
         }
@@ -164,19 +182,19 @@ int main(int argc, char** argv) {
         enemy.enemyDraw();
         hpBar.dropHpOnBar(&enemy);
         hpBar.hpBarDraw();
-        if(spriteTime>0) {
+        if (spriteTime > 0) {
             actionSprite.actionSpriteDraw();
             spriteTime--;
         }
         else
             actionSprite.actionSpritePosition(gloveX, gloveY);
 
-        if(enemy.getHp()<=0){
+        if (enemy.getHp() <= 0) {
             enemy.enemyStanceHit();
             playAgain.setPlayAgainSprite();
             playAgain.playAgainDraw();
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
                 enemy.resetDamage();
                 enemy.enemyStanceSet();
             }
@@ -186,10 +204,14 @@ int main(int argc, char** argv) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) break;
 
         glove.gloveDraw();
+
+        if (playerMode == DEFENSE_MODE) {
+            shield.shieldPosition(baseWidth / 2, baseHeight / 2);
+            shield.shieldDraw();
+        }
+
         window.display();
 
-        ///sf::Time sleepTime = sf::milliseconds(SLEEP_TIME);
-        ///sf::sleep(sleepTime);
     }
 
     return 0;

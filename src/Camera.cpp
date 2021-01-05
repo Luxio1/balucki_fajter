@@ -6,17 +6,47 @@
 using namespace std;
 using namespace cv;
 
-Camera::Camera(std::string path, bool is_photo) {
-    this->filename = std::move(path);
-    this->_isPhoto = is_photo;
-}
 
 void Camera::setRedPercent(double redPercent) {
     this->redPercent = redPercent;
 }
 
-bool Camera::isBlow(){
+bool Camera::isBlow() {
     return (redPercent > 20);
+}
+
+Mat Camera::getImage(VideoCapture cap) {
+    Mat img;
+
+    cap.read(img);
+    flip(img, img, 1);
+    imshow("Live preview", img);
+    resize(img, img, Size(img.cols / 6, img.rows / 6));
+    
+    return img;
+}
+
+Mat Camera::thresholdImg(Mat img) {
+    Mat imgThresholded, imgThresholded2;
+    cv::inRange(img, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV),
+        imgThresholded); //Threshold the image
+    cv::inRange(img, Scalar(iLowH2, iLowS, iLowV), Scalar(iHighH2, iHighS, iHighV),
+        imgThresholded2);
+
+    imgThresholded = imgThresholded | imgThresholded2;
+    return imgThresholded;
+}
+
+Mat Camera::getMorphImg(Mat img) {
+
+    //morphological opening (removes small objects from the foreground)
+    erode(img, img, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
+    dilate(img, img, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
+
+    //morphological closing (removes small holes from the foreground)
+    dilate(img, img, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
+    erode(img, img, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
+    return img;
 }
 
 void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
@@ -28,17 +58,9 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
         return;
     }
 
-    //Create a black image with the size as the camera output
-    //Mat imgLines = Mat::zeros(imgTmp.size(), CV_8UC3);;
-
-    Mat imgOriginal;
-    cap.read(imgOriginal);
-    flip(imgOriginal, imgOriginal, 1);
-    imshow("Live preview", imgOriginal);
-    resize(imgOriginal, imgOriginal, Size(imgOriginal.cols/6, imgOriginal.rows/6));
-
-    // cap.read(imgOriginal); // read a new frame from video
-    bool bSuccess = !imgOriginal.empty();
+    Mat workImg = getImage(cap);
+    
+    bool bSuccess = !workImg.empty();
 
     if (!bSuccess) //if not success, break loop
     {
@@ -46,25 +68,11 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
         return;
     }
 
-    cvtColor(imgOriginal, imgOriginal, COLOR_BGR2HSV); //Convert the captured frame from BGR to HSV
+    cvtColor(workImg, workImg, COLOR_BGR2HSV); //Convert the captured frame from BGR to HSV
 
-    Mat imgThresholded, imgThresholded2;
-    cv::inRange(imgOriginal, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV),
-                imgThresholded); //Threshold the image
-    cv::inRange(imgOriginal, Scalar(iLowH2, iLowS, iLowV), Scalar(iHighH2, iHighS, iHighV),
-                imgThresholded2);
+    Mat imgThresholded = thresholdImg(workImg);
 
-    imgThresholded = imgThresholded | imgThresholded2;
-
-
-    //morphological opening (removes small objects from the foreground)
-    erode(imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
-    dilate(imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
-
-    //morphological closing (removes small holes from the foreground)
-    dilate(imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
-    erode(imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
-
+    imgThresholded = getMorphImg(imgThresholded);
 
     //Calculate the moments of the thresholded image
     Moments oMoments = moments(imgThresholded);
@@ -85,17 +93,15 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y, int* szer, int* wys) {
 
     *X = iLastX;
     *Y = iLastY;
-    *szer = imgOriginal.cols;
-    *wys = imgOriginal.rows;
+    *szer = workImg.cols;
+    *wys = workImg.rows;
 
     vector<Mat> channels;
     cv::split(imgThresholded, channels);
 
     Mat red;
     cv::inRange(channels[0], Scalar(0), Scalar(10), red); // red
-    // ... do the same for blue, green, etc only changing the Scalar values and the Mat
-
-    double image_size = imgThresholded.cols * imgThresholded.rows;
+    double image_size = (double)imgThresholded.cols * (double)imgThresholded.rows;
     double red_percent = (1 - ((double)cv::countNonZero(red)) / image_size) * 100;
 
     setRedPercent(red_percent);

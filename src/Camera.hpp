@@ -24,11 +24,12 @@ private:
     double redPercent;
 
 public:
-    Camera(std::string path, bool is_photo);
 
-    bool isPhoto() const {
-        return _isPhoto;
-    };
+    cv::Mat getImage(cv::VideoCapture cap);
+
+    cv::Mat thresholdImg(cv::Mat img);
+
+    cv::Mat getMorphImg(cv::Mat img);
 
     void runWithVideoSingleFrame(int* X, int* Y, int*, int*);
 
