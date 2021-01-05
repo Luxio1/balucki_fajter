@@ -83,7 +83,7 @@ int main(int argc, char** argv) {
     int spriteTime = 0;
     int enemyTime = 0;
     int rand = -1;
-    int isHit = -1;
+    int framesAfterHit = -1;
 
 
     enemy.enemySetBasePosition(baseWidth / 2, baseHeight);
@@ -158,15 +158,15 @@ int main(int argc, char** argv) {
             enemy.setHp();
             spriteTime = 10;
             enemy.enemyStanceHit();
-            //enemy.enemySetPosition(baseWidth/2 + (rand() % (baseWidth-300)+100 - baseWidth/2), baseHeight);
-            isHit = 5;
+            framesAfterHit = 5;
         }
 
         enemyTime = enemy.enemyStance(enemyTime);
         enemyTime++;
 
         window.draw(backgroundSprite);
-        if (isHit-- == 0) {
+        
+        if (framesAfterHit-- == 0) {
             enemy.enemyStanceSet();
             enemy.enemyNewPosition(baseWidth, baseHeight);
         }
@@ -195,12 +195,9 @@ int main(int argc, char** argv) {
 
             if (!shield.isCollision(glove.getGlobalBounds(), shield.getGlobalBounds())) {
                     player.setHp(player.getHp() - 1);
-
-                    enemy.enemyStanceSet();     //TODO: nie zmienia pozycji przeciwnika
-                    enemy.enemyNewPosition(baseWidth, baseHeight);
             }
 
-
+            framesAfterHit = 5;
         }
 
         if (enemy.getHp() <= 0 || player.getHp() <= 0) {
