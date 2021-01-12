@@ -10,8 +10,6 @@ private:
     sf::Sprite background;
     sf::RenderWindow *window;
 
-    std::string filePath = "C:/Users/pmorl/Desktop/balucki_fajter";
-
 public:
     Background(sf::RenderWindow* window);
 

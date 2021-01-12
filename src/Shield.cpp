@@ -2,7 +2,7 @@
 #include "Shield.hpp"
 
 Shield::Shield(sf::RenderWindow* window) {
-    shieldTexture.loadFromFile(filePath + "defend_shield-export.png");
+    shieldTexture.loadFromFile("Sprites/Action_sprites/defend_shield-export.png");
     shieldSprite.setTexture(shieldTexture);
     this->window = window;
 }

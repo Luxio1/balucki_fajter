@@ -2,15 +2,12 @@
 #include "Enemy.hpp"
 
 Enemy::Enemy(sf::RenderWindow* window) {
-    //enemyTexture.loadFromFile(filePath + "/Sprites/Fighters/frajer_fajter1cropped.png");
-    //enemySprite.setTexture(enemyTexture);
+    enemyStanceHighT.loadFromFile("Sprites/Fighters/frajer_fajter1cropped.png");
+    enemyStanceLowT.loadFromFile("Sprites/Fighters/frajer_fajter2cropped.png");
+    enemyStanceHitT.loadFromFile("Sprites/Fighters/frajer_fajter1_attackedt.png");
+    enemyStanceHit2T.loadFromFile("Sprites/Fighters/frajer_fajter1_attacked2.png");
+    enemyStanceAttackT.loadFromFile("Sprites/Fighters/frajer_fajter_attack_cropped.png");
 
-    //enemySprite.setOrigin(enemyTexture.getSize().x / 2, enemyTexture.getSize().y / 2);
-    enemyStanceHighT.loadFromFile(filePath + "frajer_fajter1cropped.png");
-    enemyStanceLowT.loadFromFile(filePath + "frajer_fajter2cropped.png");
-    enemyStanceHitT.loadFromFile(filePath + "frajer_fajter1_attackedt.png");
-    enemyStanceHit2T.loadFromFile(filePath + "frajer_fajter1_attacked2.png");
-    enemyStanceAttackT.loadFromFile(filePath + "frajer_fajter_attack_cropped.png");
     setStance();
     this->window = window;
 }
@@ -27,7 +24,6 @@ void Enemy::setBasePosition(int baseWidth, int baseHeight ){
 void Enemy::draw(){
     setEnemySprite();
     window->draw(this->enemySprite);
-    //window->draw(this->enemyFaceSprite);
 }
 
 bool Enemy::isCollision(sf::FloatRect gloveBoundingBox, sf::FloatRect fighter1BoundingBox)
@@ -101,13 +97,13 @@ void Enemy::setAttackSprite(){ enemyTexture = enemyStanceAttackT; }
 
 
 void Enemy::setStance50() {
-    enemyStanceHighT.loadFromFile(filePath + "frajer_fajter_damage50%1.png");
-    enemyStanceLowT.loadFromFile(filePath + "frajer_fajter_damage50%2.png");
+    enemyStanceHighT.loadFromFile("Sprites/Fighters/frajer_fajter_damage50%1.png");
+    enemyStanceLowT.loadFromFile("Sprites/Fighters/frajer_fajter_damage50%2.png");
 }
 
 void Enemy::setStance90() {
-    enemyStanceHighT.loadFromFile(filePath + "frajer_fajter_damage90%1.png");
-    enemyStanceLowT.loadFromFile(filePath + "frajer_fajter_damage90%2.png");
+    enemyStanceHighT.loadFromFile("Sprites/Fighters/frajer_fajter_damage90%1.png");
+    enemyStanceLowT.loadFromFile("Sprites/Fighters/frajer_fajter_damage90%2.png");
 }
 
 void Enemy::setNewPostion(int baseWidth, int baseHeight) {
@@ -128,8 +124,8 @@ void Enemy::setStance(){
 }
 
 void Enemy::resetDamage(){
-    enemyStanceHighT.loadFromFile(filePath + "frajer_fajter1cropped.png");
-    enemyStanceLowT.loadFromFile(filePath + "frajer_fajter2cropped.png");
+    enemyStanceHighT.loadFromFile("Sprites/Fighters/frajer_fajter1cropped.png");
+    enemyStanceLowT.loadFromFile("Sprites/Fighters/frajer_fajter2cropped.png");
     HP=100;
 }
 

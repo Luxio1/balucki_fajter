@@ -3,7 +3,7 @@
 
 Background::Background(sf::RenderWindow* window) {
 
-    backgroundTexture.loadFromFile(filePath + "/Sprites/Backgrounds/Office_scene.png");
+    backgroundTexture.loadFromFile("Sprites/Backgrounds/Office_scene.png");
     background.setTexture(backgroundTexture);
     this->window = window;
 

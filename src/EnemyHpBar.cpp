@@ -27,19 +27,19 @@ sf::Sprite EnemyHpBar::getSprite() {
 
 void EnemyHpBar::setSprite(sf::String filename) {
     //setHpTexture(filename);
-    hpTexture.loadFromFile(filePath + filename);
+    hpTexture.loadFromFile("Sprites/HP_bar/" + filename);
     hpSprite.setTexture(hpTexture);
     hpSprite.setOrigin(hpTexture.getSize().x / 2, hpTexture.getSize().y / 2);
     EnemyHpBar::hpSprite = hpSprite;
 }
 
 void EnemyHpBar::setTexture(sf::String filename) {
-    hpTexture.loadFromFile(filePath + filename);
+    hpTexture.loadFromFile("Sprites/HP_bar/" + filename);
 }
 
-void EnemyHpBar::setHpOnBar(Enemy* enemy){
+void EnemyHpBar::setHpOnBar(Enemy* enemy) {
 	static int prevHp = 100;
-    int hp = enemy->getHp();
+	int hp = enemy->getHp();
 
 	if (hp == 50) enemy->setStance50();
 	else if (hp == 19) enemy->setStance90();
@@ -63,9 +63,5 @@ void EnemyHpBar::setHpOnBar(Enemy* enemy){
 
 	prevHp = hp;
 
-    //else if(hp==0) setActionSprite("HP_bar_90%.png");
+
 }
-
-
-
-

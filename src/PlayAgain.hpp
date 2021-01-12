@@ -12,8 +12,6 @@ private:
 
     sf::RenderWindow *window;
 
-    std::string filePath = "C:/Users/pmorl/Desktop/balucki_fajter/Sprites/play_again/";
-
     bool has_player_won;
 
 public:

@@ -24,8 +24,6 @@ private:
     sf::Texture enemyStanceAttackT;
     sf::Texture enemyStanceHit2T;
 
-    std::string filePath = "C:/Users/pmorl/Desktop/balucki_fajter/Sprites/Fighters/";
-
 public:
     Enemy(sf::RenderWindow* window);
 

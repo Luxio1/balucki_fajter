@@ -3,7 +3,7 @@
 #include "Enemy.hpp"
 
 ActionSprite::ActionSprite(sf::RenderWindow* window) {
-    actionTexture.loadFromFile(filePath + "tys_tys.png");
+    actionTexture.loadFromFile("Sprites/Action_sprites/tys_tys.png");
     actionSprite.setTexture(actionTexture);
     actionSprite.setOrigin(actionTexture.getSize().x / 2, actionTexture.getSize().y / 2);
 

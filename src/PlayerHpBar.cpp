@@ -26,15 +26,14 @@ sf::Sprite PlayerHpBar::getSprite() {
 }
 
 void PlayerHpBar::setSprite(sf::String filename) {
-    //setHpTexture(filename);
-    hpTexture.loadFromFile(filePath + filename);
+    hpTexture.loadFromFile("Sprites/HP_bar/" + filename);
     hpSprite.setTexture(hpTexture);
     hpSprite.setOrigin(hpTexture.getSize().x / 2, hpTexture.getSize().y / 2);
     PlayerHpBar::hpSprite = hpSprite;
 }
 
 void PlayerHpBar::setTexture(sf::String filename) {
-    hpTexture.loadFromFile(filePath + filename);
+    hpTexture.loadFromFile("Sprites/HP_bar/" + filename);
 }
 
 void PlayerHpBar::setHpOnBar(Player* player){
@@ -57,8 +56,6 @@ void PlayerHpBar::setHpOnBar(Player* player){
 	}
 
 	prevHp = hp;
-
-    //else if(hp==0) setActionSprite("HP_bar_90%.png");
 }
 
 

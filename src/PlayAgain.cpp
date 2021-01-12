@@ -36,11 +36,11 @@ void PlayAgain::setSprite() {
 }
 
 void PlayAgain::setVictoryTexture() {
-    playAgainPopUpTexture.loadFromFile(filePath + "victory.png");
+    playAgainPopUpTexture.loadFromFile("Sprites/play_again/victory.png");
 }
 
 void PlayAgain::setLostTexture() {
-    playAgainPopUpTexture.loadFromFile(filePath + "lost.png");
+    playAgainPopUpTexture.loadFromFile("Sprites/play_again/lost.png");
 }
 
 

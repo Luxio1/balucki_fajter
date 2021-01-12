@@ -2,8 +2,8 @@
 
 Glove::Glove(sf::RenderWindow* window) {
 
-    gloveTexture.loadFromFile(filePath + "/Sprites/rekawice/rekawica_lewa.png");
-    attackTexture.loadFromFile(filePath + "/Sprites/rekawice/attack_pose_glove.png");
+    gloveTexture.loadFromFile("Sprites/rekawice/rekawica_lewa.png");
+    attackTexture.loadFromFile("Sprites/rekawice/attack_pose_glove.png");
     gloveSprite.setTexture(gloveTexture);
     this->window = window;
     gloveSprite.setOrigin(gloveTexture.getSize().x / 2, gloveTexture.getSize().y / 2);
