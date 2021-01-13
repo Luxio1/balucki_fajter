@@ -7,8 +7,15 @@
 class Background {
 private:
     sf::Texture backgroundTexture;
-    sf::Sprite background;
+    sf::Sprite backgroundSprite;
     sf::RenderWindow *window;
+
+
+    sf::Texture enemyLabelTexture;
+    sf::Sprite enemyLabelSprite;
+
+    sf::Texture playerLabelTexture;
+    sf::Sprite playerLabelSprite;
 
 public:
     Background(sf::RenderWindow* window);
@@ -16,6 +23,8 @@ public:
     sf::Sprite getBackgroundSprites();
 
     void scaleToWindow(sf::RenderWindow *window, sf::Sprite toScale);
+    void setLabels();
+    void draw();
 };
 
 

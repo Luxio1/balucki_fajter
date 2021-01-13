@@ -4,10 +4,11 @@
 Background::Background(sf::RenderWindow* window) {
 
     backgroundTexture.loadFromFile("Sprites/Backgrounds/Office_scene.png");
-    background.setTexture(backgroundTexture);
+    backgroundSprite.setTexture(backgroundTexture);
     this->window = window;
 
     scaleToWindow(window, getBackgroundSprites());
+    setLabels();
 }
 
 // TODO: temporary function to test gloveSprite scaling
@@ -18,5 +19,20 @@ void Background::scaleToWindow(sf::RenderWindow* window, sf::Sprite toScale) {
 }
 
 sf::Sprite Background::getBackgroundSprites() {
-    return background;
+    return backgroundSprite;
+}
+
+
+void Background::setLabels() {
+    playerLabelTexture.loadFromFile("Sprites/HP_bar/player.png");
+    enemyLabelTexture.loadFromFile("Sprites/HP_bar/enemy.png");
+    playerLabelSprite.setTexture(playerLabelTexture);
+    enemyLabelSprite.setTexture(enemyLabelTexture);
+}
+
+void Background::draw() {
+    window->draw(this->backgroundSprite);
+    window->draw(this->playerLabelSprite);
+    window->draw(this->enemyLabelSprite);
+
 }

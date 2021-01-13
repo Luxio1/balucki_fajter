@@ -41,7 +41,6 @@ int main(int argc, char** argv) {
 
     //Background
     Background background(&window);
-    sf::Sprite backgroundSprite = background.getBackgroundSprites();
     
     //Player
     Player player;
@@ -158,7 +157,7 @@ int main(int argc, char** argv) {
         enemyTime = enemy.makeMovableEnemyStance(enemyTime);
         enemyTime++;
 
-        window.draw(backgroundSprite);
+        background.draw();
         
         if (framesAfterHit-- == 0) {
             enemy.setStance();
