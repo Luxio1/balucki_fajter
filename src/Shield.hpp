@@ -18,7 +18,7 @@ public:
     void setShieldPosition(int baseWidth, int baseHeight);
     void draw();
     bool isCollision(sf::FloatRect gloveBoundingBox, sf::FloatRect fighter1BoundingBox);
-    sf::FloatRect Shield::getGlobalBounds();
+    sf::FloatRect getGlobalBounds();
     void generateShieldPosition(int baseWidth, int baseHeight);
 };
 

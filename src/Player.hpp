@@ -8,6 +8,6 @@ public:
 	Player();
 	void setHp(int HP);
 	int getHp();
-	void Player::resetDamage();
+	void resetDamage();
 };
 
