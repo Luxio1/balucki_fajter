@@ -1,44 +1,44 @@
 #include <iostream>
-#include "PlayerHpBar.hpp"
+#include "HpBar.hpp"
 #include "Enemy.hpp"
 
-PlayerHpBar::PlayerHpBar(sf::RenderWindow* window) {
+HpBar::HpBar(sf::RenderWindow* window) {
 	setSprite("HP_bar.png");
 	this->window = window;
 }
 
-void PlayerHpBar::resetHealth() {
+void HpBar::resetHealth() {
 	setSprite("HP_bar.png");
 }
 
-void PlayerHpBar::setPosition(int baseWidth, int baseHeight )
+void HpBar::setPosition(int x, int y)
 {
-    hpSprite.setPosition(baseWidth * 1 / 4, baseHeight * 1 / 5 );
+    hpSprite.setPosition(x, y);
 }
 
-void PlayerHpBar::draw(){
+void HpBar::draw(){
     window->draw(this->hpSprite);
 }
 
 
-sf::Sprite PlayerHpBar::getSprite() {
+sf::Sprite HpBar::getSprite() {
     return hpSprite;
 }
 
-void PlayerHpBar::setSprite(sf::String filename) {
+void HpBar::setSprite(sf::String filename) {
+    //setHpTexture(filename);
     hpTexture.loadFromFile("Sprites/HP_bar/" + filename);
     hpSprite.setTexture(hpTexture);
     hpSprite.setOrigin(hpTexture.getSize().x / 2, hpTexture.getSize().y / 2);
-    PlayerHpBar::hpSprite = hpSprite;
+    HpBar::hpSprite = hpSprite;
 }
 
-void PlayerHpBar::setTexture(sf::String filename) {
+void HpBar::setTexture(sf::String filename) {
     hpTexture.loadFromFile("Sprites/HP_bar/" + filename);
 }
 
-void PlayerHpBar::setHpOnBar(Player* player){
+void HpBar::setHpOnBar(int hp) {
 	static int prevHp = 100;
-    int hp = player->getHp();
 
 	if (hp != prevHp) {
 		if (hp == 100) setSprite("HP_bar.png");
@@ -56,8 +56,6 @@ void PlayerHpBar::setHpOnBar(Player* player){
 	}
 
 	prevHp = hp;
+
+
 }
-
-
-
-

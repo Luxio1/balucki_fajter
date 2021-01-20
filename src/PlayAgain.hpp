@@ -10,8 +10,13 @@ private:
     sf::Texture playAgainPopUpTexture;
     sf::Sprite playAgainPopUpSprite;
 
-    sf::RenderWindow *window;
+    sf::RenderWindow* window;
 
+    bool play = false;
+public:
+    bool isPlay() const;
+
+private:
     bool has_player_won;
 
 public:
@@ -25,7 +30,12 @@ public:
     void setHasWon(bool has_won);
 
     void setVictoryTexture();
-    
+
     void setLostTexture();
+
+    void setStartGame();
+
+    void isGameStart();
 };
+
 

@@ -21,7 +21,7 @@ Mat Camera::getImage(VideoCapture cap) {
     cap.read(img);
     flip(img, img, 1);
     imshow("Live preview", img);
-    resize(img, img, Size(img.cols / 6, img.rows / 6));
+    resize(img, img, Size(img.cols / 3, img.rows / 3));
     
     return img;
 }
@@ -110,7 +110,7 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y, int* width, int* height) {
 
     vector<Mat> channels;
     cv::split(transformedImage, channels);
-
+    
     double redPercent = getRedPercent(channels, transformedImage);
 
     setRedPercent(redPercent);

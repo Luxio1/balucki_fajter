@@ -10,7 +10,7 @@ PlayAgain::PlayAgain(sf::RenderWindow* window) {
 
 
 void PlayAgain::setPosition(int baseWidth, int baseHeight) {
-    playAgainPopUpSprite.setPosition(baseWidth / 2, baseHeight / 2 );
+    playAgainPopUpSprite.setPosition(baseWidth / 2, baseHeight / 2);
 }
 
 void PlayAgain::draw() {
@@ -19,6 +19,17 @@ void PlayAgain::draw() {
 
 void PlayAgain::setHasWon(bool has_won) {
     this->has_player_won = has_won;
+}
+
+void PlayAgain::setStartGame() {
+    playAgainPopUpTexture.loadFromFile("Sprites/play_again/start.png");
+    playAgainPopUpSprite.setTexture(playAgainPopUpTexture);
+    playAgainPopUpSprite.setOrigin(playAgainPopUpTexture.getSize().x / 2, playAgainPopUpTexture.getSize().y / 2);
+    PlayAgain::playAgainPopUpSprite = playAgainPopUpSprite;
+}
+
+void PlayAgain::isGameStart() {
+    this->play = true;
 }
 
 void PlayAgain::setSprite() {
@@ -43,6 +54,6 @@ void PlayAgain::setLostTexture() {
     playAgainPopUpTexture.loadFromFile("Sprites/play_again/lost.png");
 }
 
-
-
-
+bool PlayAgain::isPlay() const {
+    return play;
+}

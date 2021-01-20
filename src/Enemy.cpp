@@ -22,6 +22,11 @@ void Enemy::setBasePosition(int baseWidth, int baseHeight ){
 }
 
 void Enemy::draw(){
+    int hp = getHp();
+
+    if (hp == 50) setStance50();
+    else if (hp == 19) setStance90();
+
     setEnemySprite();
     window->draw(this->enemySprite);
 }
@@ -44,8 +49,6 @@ int Enemy::getHp() const {
 }
 
 void Enemy::setEnemySprite() {
-    //setHpTexture(filename);
-    //enemyTexture.loadFromFile(filePath + filename);
     enemySprite.setTexture(enemyTexture);
     enemySprite.setOrigin(enemyTexture.getSize().x / 2, enemyTexture.getSize().y / 2);
     Enemy::enemySprite = enemySprite;

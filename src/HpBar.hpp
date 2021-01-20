@@ -5,7 +5,7 @@
 #include <SFML/System.hpp>
 #include "Enemy.hpp"
 
-class EnemyHpBar {
+class HpBar {
 private:
     sf::Texture hpTexture;
     sf::Sprite hpSprite;
@@ -13,14 +13,14 @@ private:
     sf::RenderWindow *window;
 
 public:
-    EnemyHpBar(sf::RenderWindow* window);
+    HpBar(sf::RenderWindow* window);
 
     void setPosition(int baseWidth, int baseHeight);
     void draw();
 
     sf::Sprite getSprite();
 
-    void setHpOnBar(Enemy* enemy);
+    void setHpOnBar(int hp);
 
     void setTexture(sf::String filename);
 

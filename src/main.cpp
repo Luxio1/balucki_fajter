@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
     int baseHeight = 1080;
     sf::RenderWindow window(sf::VideoMode(baseWidth, baseHeight, 32), "Balucki fajter");
 
-    GameLoop lunchGame(&window);
-    lunchGame.launch();
+    GameLoop launchGame(&window);
+    launchGame.launch();
     return 0;
 }

@@ -10,7 +10,7 @@ GameLoop::GameLoop(sf::RenderWindow* window) {
 
 
 
-int GameLoop::launch(){
+int GameLoop::launch() {
 
     //Player mode
     playerMode playerMode;
@@ -25,8 +25,8 @@ int GameLoop::launch(){
     Enemy enemy(window);
 
     //HP bar
-    PlayerHpBar playerHpBar(window);
-    EnemyHpBar enemyHpBar(window);
+    HpBar playerHpBar(window);
+    HpBar enemyHpBar(window);
 
     //Action Sprite
     ActionSprite actionSprite(window);
@@ -67,96 +67,108 @@ int GameLoop::launch(){
         //Event polling (to event variable)
         while ((*window).pollEvent(event)) {
             switch (event.type) {
-                case sf::Event::Closed:
+            case sf::Event::Closed:
+                (*window).close();
+                break;
+            case sf::Event::KeyPressed:
+                if (event.key.code == sf::Keyboard::Escape) {
                     (*window).close();
-                    break;
-                case sf::Event::KeyPressed:
-                    if (event.key.code == sf::Keyboard::Escape) {
-                        (*window).close();
-                    }
-                    break;
+                }
+                break;
             }
         }
 
 
-            glove.setPosition(gloveX, gloveY);
-            playerHpBar.setPosition(baseWidth, baseHeight);
-            enemyHpBar.setPosition(baseWidth, baseHeight);
+        glove.setPosition(gloveX, gloveY);
 
-            if (--inputGatherFrame == 0) {
-                inputGatherFrame = INPUT_COUNTDOWN;
-                prevGloveX = gloveX;
-                prevGloveY = gloveY;
-                camera.runWithVideoSingleFrame(&gloveX, &gloveY, &szer, &wys);
-                gloveX = ((float) gloveX / szer) * baseWidth;
-                gloveY = ((float) gloveY / wys) * baseHeight;
-                targetGloveX = gloveX;
-                targetGloveY = gloveY;
-
-                //anti-shaking solution
-                if (abs(prevGloveX - gloveX) < 192) gloveX = prevGloveX;
-                if (abs(prevGloveY - gloveY) < 108) gloveY = prevGloveY;
-            }
-
-            glove.setPosition(gloveX, gloveY);
-
-            playerHpBar.setPosition(baseWidth, baseHeight);
-            enemyHpBar.setPosition(baseWidth, baseHeight);
-
-            int szer = 0, wys = 0;
+        if (--inputGatherFrame == 0) {
+            inputGatherFrame = INPUT_COUNTDOWN;
+            prevGloveX = gloveX;
+            prevGloveY = gloveY;
             camera.runWithVideoSingleFrame(&gloveX, &gloveY, &szer, &wys);
-            gloveX = ((float) gloveX / szer) * baseWidth;
-            gloveY = ((float) gloveY / wys) * baseHeight;
+            gloveX = ((float)gloveX / szer) * baseWidth;
+            gloveY = ((float)gloveY / wys) * baseHeight;
+            targetGloveX = gloveX;
+            targetGloveY = gloveY;
 
-        if (enemy.getHp() > 0 && player.getHp() > 0) {
-
-            if (camera.isBlow())
-                glove.setAttackTexture();
-            else
-                glove.setDefenceTexture();
-
-            rand = enemy.getRandom();
-
-            if (rand == 0) {
-                playerMode = DEFENSE_MODE;
-            } else {
-                playerMode = ATTACK_MODE;
-            }
-
-            if (enemy.isCollision(glove.getGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) &&
-                camera.isBlow()) {
-                enemy.decreaseHp();
-                spriteTime = 10;
-                enemy.setHitStance();
-                framesAfterHit = 5;
-            }
-
-            enemyTime = enemy.makeMovableEnemyStance(enemyTime);
-            enemyTime++;
-
-            if (framesAfterHit-- == 0) {
-                enemy.setStance();
-                enemy.setNewPostion(baseWidth, baseHeight);
-            }
-
-            enemy.setPosition();
-
-            enemyHpBar.setHpOnBar(&enemy);
-            playerHpBar.setHpOnBar(&player);
+            //anti-shaking solution
+            if (abs(prevGloveX - gloveX) < 192) gloveX = prevGloveX;
+            if (abs(prevGloveY - gloveY) < 108) gloveY = prevGloveY;
         }
+
+        glove.setPosition(gloveX, gloveY);
+
+        playerHpBar.setPosition(baseWidth * 1 / 4, baseHeight * 1 / 5);
+        enemyHpBar.setPosition(baseWidth * 3 / 4, baseHeight * 1 / 5);
+
+        int szer = 0, wys = 0;
+        camera.runWithVideoSingleFrame(&gloveX, &gloveY, &szer, &wys);
+        gloveX = ((float)gloveX / szer) * baseWidth;
+        gloveY = ((float)gloveY / wys) * baseHeight;
 
         background.draw();
-        enemy.draw();
-        enemyHpBar.draw();
-        playerHpBar.draw();
+        playerMode = ATTACK_MODE;
 
 
-        if (enemy.getHp() > 0 && player.getHp() > 0){
+        if (playAgain.isPlay() != false) {
+
+            if (enemy.getHp() > 0 && player.getHp() > 0) {
+
+                if (camera.isBlow())
+                    glove.setAttackTexture();
+                else
+                    glove.setDefenceTexture();
+
+                rand = enemy.getRandom();
+
+                if (rand == 0) {
+                    playerMode = DEFENSE_MODE;
+                }
+                else {
+                    playerMode = ATTACK_MODE;
+                }
+
+                if (enemy.isCollision(glove.getGlobalBounds(), enemy.getEnemySprite().getGlobalBounds()) &&
+                    camera.isBlow()) {
+                    enemy.decreaseHp();
+                    spriteTime = 10;
+                    enemy.setHitStance();
+                    framesAfterHit = 5;
+                }
+
+                enemyTime = enemy.makeMovableEnemyStance(enemyTime);
+                enemyTime++;
+
+                if (framesAfterHit-- == 0) {
+                    enemy.setStance();
+                    enemy.setNewPostion(baseWidth, baseHeight);
+                }
+
+                enemy.setPosition();
+
+                enemyHpBar.setHpOnBar(enemy.getHp());
+                playerHpBar.setHpOnBar(player.getHp());
+            }
+
+            enemy.draw();
+            enemyHpBar.draw();
+            playerHpBar.draw();
+        }
+        else {
+            playAgain.setStartGame();
+            playAgain.draw();
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+                playAgain.isGameStart();
+            }
+        }
+
+        if (enemy.getHp() > 0 && player.getHp() > 0) {
 
             if (spriteTime > 0) {
                 actionSprite.draw();
                 spriteTime--;
-            } else
+            }
+            else
                 actionSprite.setPosition(gloveX, gloveY);
 
             if (playerMode == DEFENSE_MODE) {
@@ -172,11 +184,9 @@ int GameLoop::launch(){
             }
         }
 
+        glove.draw();
 
-
-            glove.draw();
-
-        if (enemy.getHp() <= 0 || player.getHp() <= 0 ) {
+        if (enemy.getHp() <= 0 || player.getHp() <= 0) {
             enemy.setHitStance();
 
             if (enemy.getHp() <= 0) {

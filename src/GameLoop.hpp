@@ -9,8 +9,7 @@
 #include <SFML/System.hpp>
 #include "Camera.hpp"
 #include "Enemy.hpp"
-#include "EnemyHpBar.hpp"
-#include "PlayerHpBar.hpp"
+#include "HpBar.hpp"
 #include "Player.hpp"
 #include "ActionSprite.hpp"
 #include "Background.hpp"
