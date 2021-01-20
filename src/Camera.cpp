@@ -37,13 +37,18 @@ Mat Camera::thresholdImg(Mat img) {
     return imgThresholded;
 }
 
-Mat Camera::getMorphImg(Mat img) {
+double Camera::getRedPercent(vector<Mat> channels, Mat imgThresholded) {
+    Mat red;
+    cv::inRange(channels[0], Scalar(0), Scalar(10), red);
+    double image_size = (double)imgThresholded.cols * (double)imgThresholded.rows;
+    double redPercent = (1 - ((double)cv::countNonZero(red)) / image_size) * 100;
+    return redPercent;
+}
 
-    //morphological opening (removes small objects from the foreground)
+Mat Camera::getMorphImg(Mat img) {
     erode(img, img, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
     dilate(img, img, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
 
-    //morphological closing (removes small holes from the foreground)
     dilate(img, img, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
     erode(img, img, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
     return img;
@@ -51,10 +56,12 @@ Mat Camera::getMorphImg(Mat img) {
 
 
 
-void Camera::runWithVideoSingleFrame(int* X, int* Y, int* width, int* height) {
-    VideoCapture static cap(0); //capture the video from webcam
 
-    if (!cap.isOpened())  // if not success, exit program
+
+void Camera::runWithVideoSingleFrame(int* X, int* Y, int* width, int* height) {
+    VideoCapture static cap(0);
+
+    if (!cap.isOpened())
     {
         cout << "Cannot open the web cam" << endl;
         return;
@@ -64,7 +71,7 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y, int* width, int* height) {
     
     bool bSuccess = !workImg.empty();
 
-    if (!bSuccess) //if not success, break loop
+    if (!bSuccess)
     {
         cout << "Cannot read a frame from video stream" << endl;
         return;
@@ -101,11 +108,8 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y, int* width, int* height) {
     vector<Mat> channels;
     cv::split(imgThresholded, channels);
 
-    Mat red;
-    cv::inRange(channels[0], Scalar(0), Scalar(10), red); // red
-    double image_size = (double)imgThresholded.cols * (double)imgThresholded.rows;
-    double red_percent = (1 - ((double)cv::countNonZero(red)) / image_size) * 100;
+    double redPercent = getRedPercent(channels, imgThresholded);
 
-    setRedPercent(red_percent);
+    setRedPercent(redPercent);
 
 }

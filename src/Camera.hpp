@@ -29,6 +29,8 @@ private:
 
     cv::Mat getMorphImg(cv::Mat img);
 
+    double getRedPercent(std::vector<cv::Mat> channels,cv::Mat imgThresholded);
+
     void setRedPercent(double redPercent);
 
 public:

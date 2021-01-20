@@ -14,7 +14,8 @@
 			)
 
 	add_executable(balucki_fajter
-			src/main.cpp 
+			src/main.cpp
+			src/GameLoop.cpp		"src/GameLoop.hpp"
 			src/Camera.cpp			src/Camera.hpp
 			src/Enemy.cpp			src/Enemy.hpp
 			src/EnemyHpBar.cpp		src/EnemyHpBar.hpp
@@ -24,7 +25,8 @@
 			src/PlayAgain.cpp		src/PlayAgain.hpp
 			src/Shield.cpp			src/Shield.hpp
 			src/PlayerHpBar.cpp		src/PlayerHpBar.hpp
-			src/Player.cpp			src/Player.hpp)
+			src/Player.cpp			src/Player.hpp 
+			)
 
 	target_link_libraries(balucki_fajter
 			${OpenCV_LIBS}
