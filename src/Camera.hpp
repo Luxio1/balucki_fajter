@@ -33,6 +33,10 @@ private:
 
     void setRedPercent(double redPercent);
 
+    void setNewPosition(int* X, int* Y, int x, int y, cv::Mat imgTransformed);
+
+    cv::Mat getTransformedImage(cv::Mat inputImage);
+
 public:
     void runWithVideoSingleFrame(int* X, int* Y, int* width, int* height);
 

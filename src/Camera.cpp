@@ -29,7 +29,7 @@ Mat Camera::getImage(VideoCapture cap) {
 Mat Camera::thresholdImg(Mat img) {
     Mat imgThresholded, imgThresholded2;
     cv::inRange(img, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV),
-        imgThresholded); //Threshold the image
+        imgThresholded);
     cv::inRange(img, Scalar(iLowH2, iLowS, iLowV), Scalar(iHighH2, iHighS, iHighV),
         imgThresholded2);
 
@@ -54,6 +54,32 @@ Mat Camera::getMorphImg(Mat img) {
     return img;
 }
 
+void Camera::setNewPosition(int* X, int* Y, int x, int y, Mat imgTransformed) {
+    Moments oMoments = moments(imgTransformed);
+
+    double dM01 = oMoments.m01;
+    double dM10 = oMoments.m10;
+    double dArea = oMoments.m00;
+
+    if (dArea > 10000) {
+        int posX = dM10 / dArea;
+        int posY = dM01 / dArea;
+
+        x = posX;
+        y = posY;
+    }
+
+    *X = x;
+    *Y = y;
+}
+
+Mat Camera::getTransformedImage(Mat inputImage) {
+    cvtColor(inputImage, inputImage, COLOR_BGR2HSV);
+    Mat imgThresholded = thresholdImg(inputImage);
+    Mat imgTransformed = getMorphImg(imgThresholded);
+    return imgTransformed;
+}
+
 
 
 
@@ -67,48 +93,25 @@ void Camera::runWithVideoSingleFrame(int* X, int* Y, int* width, int* height) {
         return;
     }
 
-    Mat workImg = getImage(cap);
-    
-    bool bSuccess = !workImg.empty();
+    Mat inputImage = getImage(cap);
 
-    if (!bSuccess)
+    if (inputImage.empty())
     {
         cout << "Cannot read a frame from video stream" << endl;
         return;
     }
 
-    cvtColor(workImg, workImg, COLOR_BGR2HSV); //Convert the captured frame from BGR to HSV
+    Mat transformedImage = getTransformedImage(inputImage);
 
-    Mat imgThresholded = thresholdImg(workImg);
+    setNewPosition(X, Y, iLastX, iLastY, transformedImage);
 
-    imgThresholded = getMorphImg(imgThresholded);
-
-    //Calculate the moments of the thresholded image
-    Moments oMoments = moments(imgThresholded);
-
-    double dM01 = oMoments.m01;
-    double dM10 = oMoments.m10;
-    double dArea = oMoments.m00;
-
-    // if the area <= 10000, I consider that the there are no object in the image and it's because of the noise, the area is not zero
-    if (dArea > 10000) {
-        //calculate the position of the ball
-        int posX = dM10 / dArea;
-        int posY = dM01 / dArea;
-
-        iLastX = posX;
-        iLastY = posY;
-    }
-
-    *X = iLastX;
-    *Y = iLastY;
-    *width = workImg.cols;
-    *height = workImg.rows;
+    *width = transformedImage.cols;
+    *height = transformedImage.rows;
 
     vector<Mat> channels;
-    cv::split(imgThresholded, channels);
+    cv::split(transformedImage, channels);
 
-    double redPercent = getRedPercent(channels, imgThresholded);
+    double redPercent = getRedPercent(channels, transformedImage);
 
     setRedPercent(redPercent);
 
