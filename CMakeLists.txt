@@ -2,7 +2,7 @@
 
 	project(balucki_fajter)
 
-	set(OpenCV_DIR "C:/opencv/vs-make")
+	set(OpenCV_DIR "C:\\Program Files\\opencv\\mingw-build\\install")
 	set(SFML_DIR "C:/SFML-2.5.1/include")
 
 	find_package(OpenCV 4.4.0 REQUIRED)
